@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michael Maaseide - Data Science & Software Engineering Portfolio</title>
-    <meta name="description" content="Data Science student at Northeastern University specializing in ML-powered solutions. Software Engineer at NExT Consulting. View my projects including ChordCrack iOS app and SEMS platform.">
+    <meta name="description" content="Data Science student at Northeastern University specializing in ML-powered solutions. Software Engineer at NExT Consulting. Creator of ChordCrack iOS app.">
     <meta name="keywords" content="Michael Maaseide, Data Science, Machine Learning, Software Engineer, Northeastern University, iOS Developer, ChordCrack, Python, React, Django">
     <meta name="author" content="Michael Maaseide">
     
@@ -25,7 +25,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://michaelmaaseide.com/">
     
-    <!-- Favicon - Using a simple initial or generic icon instead of ChordCrack logo -->
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2316a34a%22></rect><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 style=%22font-size:60px;font-family:Arial;fill:white;font-weight:bold%22>M</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,6 +55,9 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+            
+            --music-accent: #8b5cf6;
+            --music-accent-light: #a78bfa;
         }
 
         * {
@@ -81,8 +84,50 @@
             overflow-x: hidden;
             scroll-padding-top: 80px;
         }
+        
+        /* Hide default cursor everywhere */
+        body, body * {
+            cursor: none !important;
+        }
 
-        /* Animated gradient orb */
+        /* Custom Musical Cursor */
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            font-size: 24px;
+            color: var(--accent);
+            transform: translate(-50%, -50%);
+        }
+        
+        .cursor.hovering {
+            color: var(--music-accent);
+            transform: translate(-50%, -50%) scale(1.5) rotate(15deg);
+            filter: drop-shadow(0 0 8px var(--music-accent-light));
+        }
+
+        .cursor-note {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            font-size: 20px;
+            animation: floatNote 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes floatNote {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Animated gradient orb with musical pulse */
         .gradient-orb {
             position: fixed;
             width: 800px;
@@ -90,7 +135,7 @@
             top: -400px;
             right: -400px;
             background: radial-gradient(circle at center, var(--accent-faint), transparent 70%);
-            animation: morphOrb 20s ease-in-out infinite;
+            animation: morphOrb 20s ease-in-out infinite, musicPulse 4s ease-in-out infinite;
             z-index: -1;
             pointer-events: none;
         }
@@ -108,6 +153,11 @@
                 transform: translate(50px, -50px) scale(0.9);
                 filter: blur(45px);
             }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
 
         /* Container */
@@ -130,15 +180,8 @@
                 padding: 0 32px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            .container {
-                max-width: 1100px;
-                padding: 0 40px;
-            }
-        }
 
-        /* Navigation */
+        /* Navigation with Guitar String Effect */
         header {
             position: fixed;
             top: 0;
@@ -179,6 +222,21 @@
             color: var(--text-primary);
             text-decoration: none;
             transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-brand::before {
+            content: '♪';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            color: var(--music-accent);
+        }
+
+        .nav-brand:hover::before {
+            opacity: 1;
+            transform: translateX(-5px);
         }
 
         .nav-brand:hover {
@@ -200,30 +258,87 @@
             transition: color 0.2s;
         }
 
+        /* Guitar string vibration effect on hover */
         .nav-link::after {
             content: '';
             position: absolute;
             bottom: -4px;
             left: 0;
-            width: 0;
-            height: 2px;
+            width: 100%;
+            height: 1px;
             background: var(--accent);
-            transition: width 0.3s;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+            animation: stringVibrate 0.3s ease-out;
+        }
+
+        @keyframes stringVibrate {
+            0%, 100% { transform: scaleX(1) translateY(0); }
+            25% { transform: scaleX(1) translateY(-1px); }
+            75% { transform: scaleX(1) translateY(1px); }
         }
 
         .nav-link:hover {
             color: var(--text-primary);
         }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
         /* Hero Section */
         .hero {
             padding: 140px 0 80px;
             animation: fadeInUp 0.8s ease;
+            position: relative;
         }
+
+        /* Floating music notes animation */
+        .music-notes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .note {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.3;
+            animation: floatUp 8s infinite linear;
+            color: var(--music-accent);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .note:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 7s; }
+        .note:nth-child(2) { left: 15%; animation-delay: 1s; animation-duration: 8s; }
+        .note:nth-child(3) { left: 25%; animation-delay: 2s; animation-duration: 6s; }
+        .note:nth-child(4) { left: 35%; animation-delay: 3s; animation-duration: 9s; }
+        .note:nth-child(5) { left: 45%; animation-delay: 4s; animation-duration: 7s; }
+        .note:nth-child(6) { left: 55%; animation-delay: 5s; animation-duration: 8s; }
+        .note:nth-child(7) { left: 65%; animation-delay: 6s; animation-duration: 6s; }
+        .note:nth-child(8) { left: 75%; animation-delay: 7s; animation-duration: 9s; }
+        .note:nth-child(9) { left: 85%; animation-delay: 8s; animation-duration: 7s; }
+        .note:nth-child(10) { left: 95%; animation-delay: 9s; animation-duration: 8s; }
         
         @media (min-width: 1024px) {
             .hero {
@@ -234,12 +349,6 @@
         @media (min-width: 1440px) {
             .hero {
                 padding: 180px 0 100px;
-            }
-        }
-        
-        @media (min-width: 1920px) {
-            .hero {
-                padding: 200px 0 120px;
             }
         }
 
@@ -256,6 +365,8 @@
 
         .hero-content {
             max-width: 680px;
+            position: relative;
+            z-index: 1;
         }
         
         @media (min-width: 1440px) {
@@ -263,15 +374,11 @@
                 max-width: 780px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            .hero-content {
-                max-width: 900px;
-            }
-        }
 
         .hero-label {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
@@ -279,6 +386,20 @@
             color: var(--accent);
             margin-bottom: 24px;
             animation: slideInLeft 0.8s ease;
+        }
+
+        .hero-label::after {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            animation: waveform 2s ease-in-out infinite;
+        }
+
+        @keyframes waveform {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(2); }
         }
 
         @keyframes slideInLeft {
@@ -308,13 +429,6 @@
                 margin-bottom: 32px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            h1 {
-                font-size: clamp(56px, 6vw, 72px);
-                margin-bottom: 36px;
-            }
-        }
 
         .hero-description {
             font-size: 18px;
@@ -329,14 +443,6 @@
                 font-size: 19px;
                 line-height: 1.75;
                 margin-bottom: 40px;
-            }
-        }
-        
-        @media (min-width: 1920px) {
-            .hero-description {
-                font-size: 20px;
-                line-height: 1.8;
-                margin-bottom: 48px;
             }
         }
 
@@ -358,6 +464,12 @@
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .status-indicator:hover {
+            border-color: var(--music-accent-light);
+            background: linear-gradient(90deg, transparent, var(--accent-faint));
         }
 
         .status-dot {
@@ -372,9 +484,11 @@
         @keyframes pulse {
             0%, 100% { 
                 box-shadow: 0 0 0 2px var(--accent-faint);
+                transform: scale(1);
             }
             50% { 
                 box-shadow: 0 0 0 6px var(--accent-faint);
+                transform: scale(1.1);
             }
         }
 
@@ -394,19 +508,44 @@
             border: 1px solid var(--border-light);
             color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--accent-faint);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .social-link:hover::before {
+            width: 100%;
+            height: 100%;
         }
 
         .social-link:hover {
-            background: var(--accent-faint);
             border-color: var(--accent-light);
             color: var(--accent);
-            transform: translateY(-2px);
+            transform: translateY(-2px) rotate(5deg);
+        }
+
+        .social-link svg {
+            position: relative;
+            z-index: 1;
         }
 
         /* Section */
         section {
             padding: 60px 0;
+            position: relative;
         }
         
         @media (min-width: 1024px) {
@@ -420,11 +559,25 @@
                 padding: 80px 0;
             }
         }
-        
-        @media (min-width: 1920px) {
-            section {
-                padding: 100px 0;
-            }
+
+        /* Musical staff section divider */
+        .section-divider {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 60px;
+            opacity: 0.1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            pointer-events: none;
+        }
+
+        .staff-line {
+            height: 1px;
+            background: var(--text-primary);
         }
 
         .section-label {
@@ -434,9 +587,18 @@
             letter-spacing: 0.1em;
             color: var(--text-muted);
             margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .section-label::before {
+            content: '♫';
+            color: var(--music-accent);
+            opacity: 0.3;
         }
         
         @media (min-width: 1440px) {
@@ -446,37 +608,18 @@
                 margin-bottom: 32px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            .section-label {
-                font-size: 14px;
-                margin-bottom: 40px;
-            }
-        }
 
-        /* Project Cards */
+        /* Project Cards - Vinyl Record Style */
         .projects-grid {
             display: grid;
             gap: 24px;
             margin-bottom: 60px;
         }
         
-        @media (min-width: 1024px) {
-            .projects-grid {
-                gap: 28px;
-            }
-        }
-        
         @media (min-width: 1440px) {
             .projects-grid {
                 gap: 32px;
                 grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1920px) {
-            .projects-grid {
-                gap: 36px;
             }
         }
 
@@ -502,76 +645,61 @@
                 padding: 36px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            .project-card {
-                padding: 40px;
-                border-radius: 24px;
-            }
-        }
 
+        /* Vinyl record spin effect on hover */
         .project-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-lighter));
-            transform: translateX(-100%);
-            transition: transform 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(22, 163, 74, 0.15);
-            border-color: var(--accent-light);
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(139, 92, 246, 0.03) 1deg, transparent 2deg);
+            animation: vinylSpin 20s linear infinite paused;
+            pointer-events: none;
         }
 
         .project-card:hover::before {
-            transform: translateX(0);
+            animation-play-state: running;
         }
-        
-        .project-card:hover .project-title {
-            color: var(--accent);
+
+        @keyframes vinylSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        .clickable-indicator {
+
+        .project-card::after {
+            content: '▶';
             position: absolute;
-            top: 32px;
-            right: 32px;
-            width: 24px;
-            height: 24px;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--accent-faint);
             border-radius: 50%;
+            font-size: 12px;
+            color: var(--accent);
             opacity: 0;
             transform: scale(0.8);
             transition: all 0.3s ease;
         }
-        
-        .project-card:hover .clickable-indicator {
+
+        .project-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+            border-color: var(--music-accent-light);
+        }
+
+        .project-card:hover::after {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) rotate(360deg);
         }
         
-        a.project-card .clickable-indicator::after {
-            content: '↗';
+        .project-card:hover .project-title {
             color: var(--accent);
-            font-weight: 600;
-        }
-        
-        .project-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: var(--accent-faint);
-            color: var(--accent);
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-right: 40px;
         }
 
         @keyframes slideUp {
@@ -610,6 +738,12 @@
             color: var(--accent);
             font-weight: 600;
             font-size: 20px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover .project-logo {
+            transform: rotate(10deg);
         }
 
         .project-logo img {
@@ -627,6 +761,7 @@
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 4px;
+            transition: color 0.3s;
         }
 
         .project-subtitle {
@@ -637,11 +772,17 @@
         .project-badge {
             display: inline-block;
             padding: 4px 10px;
-            background: var(--accent-faint);
-            color: var(--accent);
+            background: linear-gradient(135deg, var(--music-accent), var(--music-accent-light));
+            color: white;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
+            animation: shimmer 3s ease infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
 
         .project-description {
@@ -658,13 +799,6 @@
                 margin-bottom: 24px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            .project-description {
-                font-size: 16px;
-                line-height: 1.7;
-            }
-        }
 
         .project-tech {
             display: flex;
@@ -679,6 +813,24 @@
             font-size: 12px;
             color: var(--text-secondary);
             font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-faint), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover .tech-tag::before {
+            left: 100%;
         }
         
         @media (min-width: 1440px) {
@@ -687,16 +839,8 @@
                 padding: 5px 12px;
             }
         }
-        
-        @media (min-width: 1920px) {
-            .tech-tag {
-                font-size: 14px;
-                padding: 6px 14px;
-                border-radius: 8px;
-            }
-        }
 
-        /* Experience */
+        /* Experience with Rhythm */
         .experience-list {
             display: grid;
             gap: 2px;
@@ -714,6 +858,23 @@
             transition: all 0.2s;
             opacity: 0;
             animation: fadeIn 0.6s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--music-accent), transparent);
+            transition: left 0.6s;
+        }
+
+        .experience-item:hover::before {
+            left: 100%;
         }
 
         .experience-item:nth-child(1) { animation-delay: 0.1s; }
@@ -727,12 +888,27 @@
 
         .experience-item:hover {
             background: var(--bg-hover);
+            transform: translateX(4px);
         }
 
         .experience-period {
             font-size: 13px;
             color: var(--text-muted);
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .experience-period::before {
+            content: '●';
+            color: var(--music-accent);
+            animation: beat 1s ease-in-out infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         .experience-role {
@@ -763,6 +939,11 @@
             color: var(--accent);
             font-size: 10px;
             font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .experience-company:hover .company-logo {
+            transform: rotate(360deg);
         }
 
         .company-logo img {
@@ -787,17 +968,66 @@
             text-align: center;
             padding: 80px 0;
             border-top: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Piano keys at the bottom */
+        .piano-keys {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .key {
+            width: 30px;
+            height: 100%;
+            background: var(--text-primary);
+            border: 1px solid var(--bg-main);
+            transition: transform 0.3s;
+        }
+
+        .key.black {
+            background: var(--text-primary);
+            width: 20px;
+            height: 60%;
+            margin: 0 -10px;
+            z-index: 1;
         }
 
         .contact-content {
             max-width: 480px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         .contact-title {
             font-family: 'DM Serif Display', serif;
             font-size: 36px;
             margin-bottom: 16px;
+            position: relative;
+        }
+
+        .contact-title::after {
+            content: '🎵';
+            position: absolute;
+            right: -40px;
+            top: 0;
+            font-size: 24px;
+            animation: bounce 2s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .contact-description {
@@ -811,43 +1041,196 @@
             align-items: center;
             gap: 8px;
             padding: 12px 24px;
-            background: var(--text-primary);
+            background: linear-gradient(135deg, var(--text-primary), var(--music-accent));
             color: white;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 500;
             font-size: 15px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%);
+            transition: left 0.3s;
+        }
+
+        .contact-cta:hover::before {
+            left: 100%;
         }
 
         .contact-cta:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Interactive Chord Easter Egg */
+        .chord-easter-egg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
             background: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
         }
 
-        /* Mobile and Responsive Design */
-        @media (max-width: 1024px) {
+        .chord-easter-egg:hover {
+            transform: scale(1.1) rotate(10deg);
+            background: var(--music-accent);
+        }
+
+        .chord-easter-egg::after {
+            content: '♪';
+            color: white;
+            font-size: 20px;
+        }
+
+        .chord-popup {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 51;
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .chord-popup.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: all;
+        }
+
+        .chord-popup h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .chord-popup p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Hero Image Styles */
+        .hero-image-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Vinyl record background for hero image */
+        .hero-image-vinyl {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: linear-gradient(
+                repeating-conic-gradient(from 0deg at 50% 50%, 
+                    #1a1a1a 0deg, 
+                    #2a2a2a 1deg, 
+                    #1a1a1a 2deg) 50% / 100% 100%
+            );
+            opacity: 0.1;
+            animation: slowSpin 30s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes slowSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-image-container:hover .hero-image-vinyl {
+            animation-duration: 3s;
+        }
+
+        .hero-image-fallback {
+            width: 280px;
+            height: 280px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--music-accent));
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            font-weight: 600;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @media (min-width: 1440px) {
+            .hero-image-container {
+                width: 320px;
+                height: 320px;
+            }
+            
+            .hero-image, .hero-image-fallback {
+                width: 320px;
+                height: 320px;
+                border-radius: 24px;
+            }
+            
+            .hero-image-vinyl {
+                width: 360px;
+                height: 360px;
+            }
+            
             .hero-content {
-                grid-template-columns: 1fr !important;
-                text-align: center;
-            }
-            
-            .hero-content > div:last-child {
-                order: -1;
-                margin-bottom: 40px;
-            }
-            
-            .hero-actions {
-                justify-content: center;
-            }
-            
-            .social-links {
-                justify-content: center;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 80px;
+                align-items: center;
             }
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            
+            .cursor {
+                display: none;
+            }
+
             .container {
                 padding: 0 20px;
             }
@@ -868,12 +1251,6 @@
             
             .hero-description {
                 font-size: 16px;
-            }
-            
-            .hero-image,
-            .hero-image-fallback {
-                width: 220px !important;
-                height: 220px !important;
             }
 
             .hero-actions {
@@ -914,6 +1291,47 @@
             .contact {
                 padding: 60px 0;
             }
+
+            .chord-easter-egg {
+                bottom: 10px;
+                right: 10px;
+                width: 35px;
+                height: 35px;
+            }
+
+            .contact-title::after {
+                display: none;
+            }
+            
+            .hero-image-container,
+            .hero-image,
+            .hero-image-fallback {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .hero-image-vinyl {
+                width: 260px;
+                height: 260px;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+            }
+            
+            .hero-content > div:last-child {
+                order: -1;
+                margin-bottom: 40px;
+            }
+            
+            .hero-actions {
+                justify-content: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -941,12 +1359,6 @@
             .hero-description {
                 font-size: 15px;
                 line-height: 1.6;
-            }
-            
-            .hero-image,
-            .hero-image-fallback {
-                width: 180px !important;
-                height: 180px !important;
             }
             
             .social-links {
@@ -986,33 +1398,27 @@
             .contact-description {
                 font-size: 14px;
             }
-        }
-
-        /* Landscape mobile */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .hero {
-                padding: 80px 0 40px;
-            }
             
-            nav {
-                padding: 12px 0;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr auto !important;
-            }
-            
+            .hero-image-container,
             .hero-image,
             .hero-image-fallback {
-                width: 150px !important;
-                height: 150px !important;
+                width: 180px;
+                height: 180px;
+            }
+            
+            .hero-image-vinyl {
+                width: 220px;
+                height: 220px;
             }
         }
 
         /* Print styles */
         @media print {
             .gradient-orb,
-            .social-links {
+            .social-links,
+            .music-notes,
+            .chord-easter-egg,
+            .piano-keys {
                 display: none;
             }
             
@@ -1024,21 +1430,10 @@
                 page-break-inside: avoid;
             }
         }
-
-        /* Scroll animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .scroll-reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
+    <div class="cursor">♪</div>
     <div class="gradient-orb"></div>
 
     <header>
@@ -1055,6 +1450,18 @@
     </header>
 
     <section class="hero">
+        <div class="music-notes">
+            <span class="note">♪</span>
+            <span class="note">♫</span>
+            <span class="note">♪</span>
+            <span class="note">♬</span>
+            <span class="note">♩</span>
+            <span class="note">♪</span>
+            <span class="note">♫</span>
+            <span class="note">♬</span>
+            <span class="note">♪</span>
+            <span class="note">♩</span>
+        </div>
         <div class="container">
             <div class="hero-content" style="display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center;">
                 <div>
@@ -1089,7 +1496,8 @@
                         </div>
                     </div>
                 </div>
-                <div style="position: relative;">
+                <div class="hero-image-container">
+                    <div class="hero-image-vinyl"></div>
                     <img src="images/headshot.jpg" 
                          alt="Michael Maaseide" 
                          class="hero-image"
@@ -1101,66 +1509,19 @@
             </div>
         </div>
     </section>
-    
-    <style>
-        .hero-image {
-            width: 280px;
-            height: 280px;
-            border-radius: 20px;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .hero-image-fallback {
-            width: 280px;
-            height: 280px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, var(--accent-faint), var(--accent-light));
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            font-weight: 600;
-            color: white;
-        }
-        
-        @media (min-width: 1440px) {
-            .hero-image, .hero-image-fallback {
-                width: 320px;
-                height: 320px;
-                border-radius: 24px;
-            }
-            
-            .hero-content {
-                display: grid;
-                grid-template-columns: 1fr auto;
-                gap: 80px;
-                align-items: center;
-            }
-        }
-        
-        @media (min-width: 1920px) {
-            .hero-image, .hero-image-fallback {
-                width: 360px;
-                height: 360px;
-            }
-            
-            .hero-content {
-                gap: 100px;
-            }
-            
-            .hero-image-fallback {
-                font-size: 100px;
-            }
-        }
-    </style>
 
     <section id="projects">
         <div class="container">
-            <h2 class="section-label scroll-reveal">Featured Projects</h2>
+            <div class="section-divider">
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+            </div>
+            <h2 class="section-label">Featured Projects</h2>
             <div class="projects-grid">
                 <a href="https://apps.apple.com/us/app/chordcrack/id6752358083" target="_blank" class="project-card">
-                    <span class="clickable-indicator"></span>
                     <div class="project-header">
                         <div class="project-info">
                             <div class="project-logo">
@@ -1215,7 +1576,6 @@
                 </div>
 
                 <a href="https://nunext.dev" target="_blank" class="project-card">
-                    <span class="clickable-indicator"></span>
                     <div class="project-header">
                         <div class="project-info">
                             <div class="project-logo">
@@ -1293,7 +1653,6 @@
                 </div>
                 
                 <a href="https://github.com/mmaaseide23/TASection-Allocator" target="_blank" class="project-card">
-                    <span class="clickable-indicator"></span>
                     <div class="project-header">
                         <div class="project-info">
                             <div class="project-logo" style="background: linear-gradient(135deg, #fce7f3, #f9a8d4); color: #be185d;">
@@ -1327,7 +1686,14 @@
 
     <section id="experience">
         <div class="container">
-            <h2 class="section-label scroll-reveal">Experience</h2>
+            <div class="section-divider">
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+            </div>
+            <h2 class="section-label">Experience</h2>
             <div class="experience-list">
                 <div class="experience-item">
                     <div class="experience-period">Jul 2025 - Present</div>
@@ -1375,13 +1741,27 @@
 
     <section id="contact" class="contact">
         <div class="container">
+            <div class="piano-keys">
+                <div class="key"></div>
+                <div class="key black"></div>
+                <div class="key"></div>
+                <div class="key black"></div>
+                <div class="key"></div>
+                <div class="key"></div>
+                <div class="key black"></div>
+                <div class="key"></div>
+                <div class="key black"></div>
+                <div class="key"></div>
+                <div class="key black"></div>
+                <div class="key"></div>
+            </div>
             <div class="contact-content">
                 <h2 class="contact-title">Let's build something together</h2>
                 <p class="contact-description">
                     I'm always excited to work on meaningful projects and explore new opportunities.
                 </p>
-                <a href="mailto:maaseidemichael@gmail.com" class="contact-cta">
-                    Get in touch
+                <a href="https://www.linkedin.com/in/memaaseide" target="_blank" class="contact-cta">
+                    Message on LinkedIn
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14m-7-7l7 7-7 7"/>
                     </svg>
@@ -1389,6 +1769,13 @@
             </div>
         </div>
     </section>
+
+    <!-- ChordCrack Easter Egg -->
+    <div class="chord-easter-egg" id="chordToggle"></div>
+    <div class="chord-popup" id="chordPopup">
+        <h4>Can you identify this chord?</h4>
+        <p>Try the ChordCrack app for daily guitar ear training challenges!</p>
+    </div>
 
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -1416,6 +1803,86 @@
     </script>
 
     <script>
+        // Custom cursor with music notes
+        const cursor = document.querySelector('.cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            if (cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        // Change cursor on hover over clickable elements - just switch between single and double note
+        document.addEventListener('mouseover', (e) => {
+            const clickable = e.target.closest('a, button, .project-card, .social-link, .nav-link, .contact-cta, .chord-easter-egg');
+            if (clickable) {
+                cursor.classList.add('hovering');
+                cursor.textContent = '♫'; // Double note when hovering
+            } else {
+                cursor.classList.remove('hovering');
+                cursor.textContent = '♪'; // Single note normally
+            }
+        });
+
+        // Create floating notes on click
+        const notes = ['♪', '♫', '♬', '♩', '♮'];
+        let noteIndex = 0;
+        
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                createFloatingNote(e.clientX, e.clientY);
+                playClickSound();
+            }
+        });
+
+        function createFloatingNote(x, y) {
+            const note = document.createElement('div');
+            note.className = 'cursor-note';
+            note.textContent = notes[noteIndex % notes.length];
+            note.style.left = x + 'px';
+            note.style.top = y + 'px';
+            note.style.color = getComputedStyle(document.documentElement).getPropertyValue('--music-accent');
+            document.body.appendChild(note);
+            noteIndex++;
+            
+            setTimeout(() => {
+                note.remove();
+            }, 2000);
+        }
+
+        // Simple sound generation (Web Audio API)
+        let audioContext;
+        const noteFrequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25]; // C major scale
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playClickSound() {
+            initAudio();
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            const frequency = noteFrequencies[Math.floor(Math.random() * noteFrequencies.length)];
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1426,6 +1893,7 @@
             });
         });
 
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -1435,21 +1903,114 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    
+                    // Play a subtle chord when sections come into view
+                    if (entry.target.classList.contains('section-label')) {
+                        playChordProgression();
+                    }
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
+        document.querySelectorAll('.section-label').forEach(el => {
             observer.observe(el);
         });
 
+        // Chord progression for sections
+        let chordIndex = 0;
+        const chords = [
+            [261.63, 329.63, 392.00], // C major
+            [220.00, 277.18, 329.63], // A minor
+            [174.61, 220.00, 261.63], // F major
+            [196.00, 246.94, 293.66]  // G major
+        ];
+
+        function playChordProgression() {
+            initAudio();
+            if (!audioContext) return;
+            
+            const chord = chords[chordIndex % chords.length];
+            chord.forEach((frequency, index) => {
+                setTimeout(() => {
+                    playNote(frequency, 0.05, 0.3);
+                }, index * 50);
+            });
+            chordIndex++;
+        }
+
+        function playNote(frequency, volume, duration) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+
+        // Parallax scrolling for background elements
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const orb = document.querySelector('.gradient-orb');
+            const musicNotes = document.querySelectorAll('.note');
+            
             if (orb) {
                 orb.style.transform = `translateY(${scrolled * 0.2}px)`;
             }
+            
+            musicNotes.forEach((note, index) => {
+                note.style.transform = `translateY(${scrolled * (0.1 + index * 0.02)}px)`;
+            });
         });
+
+        // ChordCrack Easter Egg
+        const chordToggle = document.getElementById('chordToggle');
+        const chordPopup = document.getElementById('chordPopup');
+        
+        if (chordToggle && chordPopup) {
+            chordToggle.addEventListener('click', () => {
+                chordPopup.classList.toggle('active');
+                playChordSound();
+            });
+            
+            // Close popup when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!chordToggle.contains(e.target) && !chordPopup.contains(e.target)) {
+                    chordPopup.classList.remove('active');
+                }
+            });
+        }
+
+        function playChordSound() {
+            initAudio();
+            if (!audioContext) return;
+            
+            // Play a mystery chord for the easter egg
+            const mysteryChord = [329.63, 415.30, 493.88]; // E major
+            mysteryChord.forEach((frequency, index) => {
+                setTimeout(() => {
+                    playNote(frequency, 0.08, 0.5);
+                }, index * 30);
+            });
+        }
+
+        // Add hover effects to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                playNote(440, 0.03, 0.1); // A note on hover
+            });
+        });
+
+        // Initialize audio context on first user interaction
+        document.addEventListener('click', initAudio, { once: true });
+        document.addEventListener('touchstart', initAudio, { once: true });
     </script>
 </body>
 </html>
