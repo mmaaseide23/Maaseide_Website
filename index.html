@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://michaelmaaseide.com/">
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2316a34a%22></rect><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 style=%22font-size:60px;font-family:Arial;fill:white;font-weight:bold%22>M</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23334155%22></rect><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 style=%22font-size:60px;font-family:Arial;fill:white;font-weight:bold%22>M</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,30 +34,39 @@
     
     <style>
         :root {
-            --accent: #16a34a;
-            --accent-light: #22c55e;
-            --accent-lighter: #4ade80;
-            --accent-faint: rgba(34, 197, 94, 0.08);
-            --accent-glow: rgba(34, 197, 94, 0.2);
+            /* Professional blue-slate color scheme */
+            --primary: #334155;
+            --primary-light: #475569;
+            --primary-lighter: #64748b;
+            --primary-faint: rgba(51, 65, 85, 0.05);
+            --primary-glow: rgba(51, 65, 85, 0.15);
             
-            --bg-main: #fafaf9;
+            --accent: #0f766e;
+            --accent-light: #14b8a6;
+            --accent-lighter: #5eead4;
+            --accent-faint: rgba(20, 184, 166, 0.08);
+            --accent-glow: rgba(20, 184, 166, 0.2);
+            
+            /* Sophisticated background colors */
+            --bg-main: #fefefe;
             --bg-card: #ffffff;
-            --bg-hover: #f5f5f4;
+            --bg-hover: #f8fafc;
+            --bg-section: #f1f5f9;
             
-            --text-primary: #171717;
-            --text-secondary: #525252;
-            --text-muted: #a3a3a3;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
             
-            --border: #e5e5e5;
-            --border-light: #f5f5f4;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
             
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             
-            --music-accent: #8b5cf6;
-            --music-accent-light: #a78bfa;
+            --music-accent: #7c3aed;
+            --music-accent-light: #a855f7;
         }
 
         * {
@@ -85,26 +94,9 @@
             scroll-padding-top: 80px;
         }
         
-        /* Hide default cursor everywhere */
+        /* Default cursor behavior */
         body, body * {
-            cursor: none !important;
-        }
-
-        /* Custom Musical Cursor */
-        .cursor {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.15s ease, opacity 0.15s ease;
-            font-size: 24px;
-            color: var(--accent);
-            transform: translate(-50%, -50%);
-        }
-        
-        .cursor.hovering {
-            color: var(--music-accent);
-            transform: translate(-50%, -50%) scale(1.5) rotate(15deg);
-            filter: drop-shadow(0 0 8px var(--music-accent-light));
+            cursor: default;
         }
 
         .cursor-note {
@@ -127,15 +119,15 @@
             }
         }
 
-        /* Animated gradient orb with musical pulse */
+        /* Subtle gradient orb */
         .gradient-orb {
             position: fixed;
-            width: 800px;
-            height: 800px;
-            top: -400px;
-            right: -400px;
-            background: radial-gradient(circle at center, var(--accent-faint), transparent 70%);
-            animation: morphOrb 20s ease-in-out infinite, musicPulse 4s ease-in-out infinite;
+            width: 600px;
+            height: 600px;
+            top: -300px;
+            right: -300px;
+            background: radial-gradient(circle at center, var(--primary-faint), transparent 70%);
+            animation: morphOrb 25s ease-in-out infinite;
             z-index: -1;
             pointer-events: none;
         }
@@ -143,21 +135,16 @@
         @keyframes morphOrb {
             0%, 100% { 
                 transform: translate(0, 0) scale(1);
-                filter: blur(40px);
-            }
-            33% { 
-                transform: translate(-100px, 100px) scale(1.1);
                 filter: blur(50px);
             }
-            66% { 
-                transform: translate(50px, -50px) scale(0.9);
-                filter: blur(45px);
+            33% { 
+                transform: translate(-80px, 80px) scale(1.1);
+                filter: blur(60px);
             }
-        }
-
-        @keyframes musicPulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+            66% { 
+                transform: translate(40px, -40px) scale(0.9);
+                filter: blur(55px);
+            }
         }
 
         /* Container */
@@ -181,17 +168,17 @@
             }
         }
 
-        /* Navigation with Guitar String Effect */
+        /* Navigation */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(250, 250, 249, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             z-index: 100;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border);
             animation: slideDown 0.6s ease;
         }
 
@@ -231,7 +218,7 @@
             left: -20px;
             opacity: 0;
             transition: opacity 0.3s, transform 0.3s;
-            color: var(--music-accent);
+            color: var(--accent);
         }
 
         .nav-brand:hover::before {
@@ -258,14 +245,13 @@
             transition: color 0.2s;
         }
 
-        /* Guitar string vibration effect on hover */
         .nav-link::after {
             content: '';
             position: absolute;
             bottom: -4px;
             left: 0;
             width: 100%;
-            height: 1px;
+            height: 2px;
             background: var(--accent);
             transform: scaleX(0);
             transform-origin: right;
@@ -275,13 +261,6 @@
         .nav-link:hover::after {
             transform: scaleX(1);
             transform-origin: left;
-            animation: stringVibrate 0.3s ease-out;
-        }
-
-        @keyframes stringVibrate {
-            0%, 100% { transform: scaleX(1) translateY(0); }
-            25% { transform: scaleX(1) translateY(-1px); }
-            75% { transform: scaleX(1) translateY(1px); }
         }
 
         .nav-link:hover {
@@ -294,51 +273,6 @@
             animation: fadeInUp 0.8s ease;
             position: relative;
         }
-
-        /* Floating music notes animation */
-        .music-notes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .note {
-            position: absolute;
-            font-size: 24px;
-            opacity: 0.3;
-            animation: floatUp 8s infinite linear;
-            color: var(--music-accent);
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        .note:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 7s; }
-        .note:nth-child(2) { left: 15%; animation-delay: 1s; animation-duration: 8s; }
-        .note:nth-child(3) { left: 25%; animation-delay: 2s; animation-duration: 6s; }
-        .note:nth-child(4) { left: 35%; animation-delay: 3s; animation-duration: 9s; }
-        .note:nth-child(5) { left: 45%; animation-delay: 4s; animation-duration: 7s; }
-        .note:nth-child(6) { left: 55%; animation-delay: 5s; animation-duration: 8s; }
-        .note:nth-child(7) { left: 65%; animation-delay: 6s; animation-duration: 6s; }
-        .note:nth-child(8) { left: 75%; animation-delay: 7s; animation-duration: 9s; }
-        .note:nth-child(9) { left: 85%; animation-delay: 8s; animation-duration: 7s; }
-        .note:nth-child(10) { left: 95%; animation-delay: 9s; animation-duration: 8s; }
         
         @media (min-width: 1024px) {
             .hero {
@@ -394,12 +328,6 @@
             width: 40px;
             height: 2px;
             background: linear-gradient(90deg, var(--accent), transparent);
-            animation: waveform 2s ease-in-out infinite;
-        }
-
-        @keyframes waveform {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(2); }
         }
 
         @keyframes slideInLeft {
@@ -457,25 +385,27 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 16px;
+            padding: 12px 20px;
             background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 100px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
-            transition: all 0.3s;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
         }
 
         .status-indicator:hover {
-            border-color: var(--music-accent-light);
-            background: linear-gradient(90deg, transparent, var(--accent-faint));
+            border-color: var(--accent-light);
+            background: var(--bg-hover);
+            box-shadow: var(--shadow-md);
         }
 
         .status-dot {
             width: 8px;
             height: 8px;
-            background: var(--accent-light);
+            background: var(--accent);
             border-radius: 50%;
             box-shadow: 0 0 0 2px var(--accent-faint);
             animation: pulse 2s infinite;
@@ -501,16 +431,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             background: var(--bg-card);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border);
             color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.2s;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .social-link::before {
@@ -532,9 +463,10 @@
         }
 
         .social-link:hover {
-            border-color: var(--accent-light);
+            border-color: var(--accent);
             color: var(--accent);
-            transform: translateY(-2px) rotate(5deg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .social-link svg {
@@ -544,49 +476,34 @@
 
         /* Section */
         section {
-            padding: 60px 0;
+            padding: 80px 0;
             position: relative;
         }
         
         @media (min-width: 1024px) {
             section {
-                padding: 70px 0;
+                padding: 90px 0;
             }
         }
         
         @media (min-width: 1440px) {
             section {
-                padding: 80px 0;
+                padding: 100px 0;
             }
         }
 
-        /* Musical staff section divider */
-        .section-divider {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 60px;
-            opacity: 0.1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            pointer-events: none;
-        }
-
-        .staff-line {
-            height: 1px;
-            background: var(--text-primary);
+        /* Alternating section backgrounds */
+        section:nth-child(even) {
+            background: var(--bg-section);
         }
 
         .section-label {
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-muted);
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -596,20 +513,20 @@
         }
 
         .section-label::before {
-            content: '♫';
-            color: var(--music-accent);
-            opacity: 0.3;
+            content: '●';
+            color: var(--accent);
+            font-size: 8px;
         }
         
         @media (min-width: 1440px) {
             .section-label {
                 font-size: 13px;
-                letter-spacing: 0.12em;
-                margin-bottom: 32px;
+                letter-spacing: 0.14em;
+                margin-bottom: 40px;
             }
         }
 
-        /* Project Cards - Vinyl Record Style */
+        /* Project Cards */
         .projects-grid {
             display: grid;
             gap: 24px;
@@ -626,8 +543,8 @@
         .project-card {
             display: block;
             background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 32px;
             text-decoration: none;
             color: inherit;
@@ -638,6 +555,7 @@
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            box-shadow: var(--shadow-sm);
         }
         
         @media (min-width: 1440px) {
@@ -646,56 +564,35 @@
             }
         }
 
-        /* Vinyl record spin effect on hover */
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(139, 92, 246, 0.03) 1deg, transparent 2deg);
-            animation: vinylSpin 20s linear infinite paused;
-            pointer-events: none;
-        }
-
-        .project-card:hover::before {
-            animation-play-state: running;
-        }
-
-        @keyframes vinylSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .project-card::after {
-            content: '▶';
+            content: '↗';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 30px;
-            height: 30px;
+            top: 24px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--accent-faint);
-            border-radius: 50%;
-            font-size: 12px;
-            color: var(--accent);
+            background: var(--primary);
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
             opacity: 0;
-            transform: scale(0.8);
+            transform: scale(0.8) rotate(-45deg);
             transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
-            border-color: var(--music-accent-light);
         }
 
         .project-card:hover::after {
             opacity: 1;
-            transform: scale(1) rotate(360deg);
+            transform: scale(1) rotate(0deg);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-light);
         }
         
         .project-card:hover .project-title {
@@ -718,7 +615,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .project-info {
@@ -740,10 +637,6 @@
             font-size: 20px;
             position: relative;
             transition: transform 0.3s;
-        }
-
-        .project-card:hover .project-logo {
-            transform: rotate(10deg);
         }
 
         .project-logo img {
@@ -771,32 +664,28 @@
 
         .project-badge {
             display: inline-block;
-            padding: 4px 10px;
-            background: linear-gradient(135deg, var(--music-accent), var(--music-accent-light));
+            padding: 6px 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
             color: white;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 11px;
             font-weight: 600;
-            animation: shimmer 3s ease infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .project-description {
             font-size: 14px;
             line-height: 1.6;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         @media (min-width: 1440px) {
             .project-description {
                 font-size: 15px;
                 line-height: 1.65;
-                margin-bottom: 24px;
+                margin-bottom: 28px;
             }
         }
 
@@ -807,74 +696,41 @@
         }
 
         .tech-tag {
-            padding: 4px 10px;
+            padding: 6px 12px;
             background: var(--bg-hover);
             border-radius: 6px;
             font-size: 12px;
             color: var(--text-secondary);
             font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tech-tag::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent-faint), transparent);
-            transition: left 0.5s;
-        }
-
-        .project-card:hover .tech-tag::before {
-            left: 100%;
+            border: 1px solid var(--border-light);
         }
         
         @media (min-width: 1440px) {
             .tech-tag {
                 font-size: 13px;
-                padding: 5px 12px;
+                padding: 7px 14px;
             }
         }
 
-        /* Experience with Rhythm */
+        /* Experience */
         .experience-list {
             display: grid;
             gap: 2px;
-            background: var(--border-light);
-            border-radius: 16px;
+            background: var(--border);
+            border-radius: 12px;
             overflow: hidden;
         }
 
         .experience-item {
             background: var(--bg-card);
-            padding: 24px;
+            padding: 32px;
             display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 24px;
+            grid-template-columns: 160px 1fr;
+            gap: 32px;
             transition: all 0.2s;
             opacity: 0;
             animation: fadeIn 0.6s ease forwards;
             position: relative;
-            overflow: hidden;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--music-accent), transparent);
-            transition: left 0.6s;
-        }
-
-        .experience-item:hover::before {
-            left: 100%;
         }
 
         .experience-item:nth-child(1) { animation-delay: 0.1s; }
@@ -894,27 +750,23 @@
         .experience-period {
             font-size: 13px;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .experience-period::before {
             content: '●';
-            color: var(--music-accent);
-            animation: beat 1s ease-in-out infinite;
-        }
-
-        @keyframes beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            color: var(--accent);
+            font-size: 12px;
         }
 
         .experience-role {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
         }
 
         .experience-company {
@@ -924,7 +776,7 @@
             font-size: 14px;
             color: var(--text-secondary);
             text-decoration: none;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             transition: color 0.2s;
         }
 
@@ -940,10 +792,6 @@
             font-size: 10px;
             font-weight: 600;
             transition: transform 0.3s;
-        }
-
-        .experience-company:hover .company-logo {
-            transform: rotate(360deg);
         }
 
         .company-logo img {
@@ -966,43 +814,13 @@
         /* Contact */
         .contact {
             text-align: center;
-            padding: 80px 0;
-            border-top: 1px solid var(--border-light);
+            padding: 100px 0;
             position: relative;
-            overflow: hidden;
-        }
-
-        /* Piano keys at the bottom */
-        .piano-keys {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
-        .key {
-            width: 30px;
-            height: 100%;
-            background: var(--text-primary);
-            border: 1px solid var(--bg-main);
-            transition: transform 0.3s;
-        }
-
-        .key.black {
-            background: var(--text-primary);
-            width: 20px;
-            height: 60%;
-            margin: 0 -10px;
-            z-index: 1;
+            background: linear-gradient(135deg, var(--bg-section) 0%, var(--bg-main) 100%);
         }
 
         .contact-content {
-            max-width: 480px;
+            max-width: 520px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
@@ -1010,19 +828,20 @@
 
         .contact-title {
             font-family: 'DM Serif Display', serif;
-            font-size: 36px;
-            margin-bottom: 16px;
+            font-size: 40px;
+            margin-bottom: 20px;
             position: relative;
+            color: var(--text-primary);
         }
 
         .contact-title::after {
             content: '🎵';
             position: absolute;
-            right: -40px;
+            right: -50px;
             top: 0;
-            font-size: 24px;
+            font-size: 28px;
             animation: bounce 2s ease-in-out infinite;
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
         @keyframes bounce {
@@ -1031,25 +850,27 @@
         }
 
         .contact-description {
-            font-size: 16px;
+            font-size: 17px;
             color: var(--text-secondary);
-            margin-bottom: 32px;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
 
         .contact-cta {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, var(--text-primary), var(--music-accent));
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-lg);
         }
 
         .contact-cta::before {
@@ -1069,53 +890,54 @@
         }
 
         .contact-cta:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
         }
 
         /* Interactive Chord Easter Egg */
         .chord-easter-egg {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            border-radius: 50%;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
             z-index: 50;
-            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+            box-shadow: var(--shadow-lg);
         }
 
         .chord-easter-egg:hover {
-            transform: scale(1.1) rotate(10deg);
-            background: var(--music-accent);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
         }
 
         .chord-easter-egg::after {
             content: '♪';
             color: white;
-            font-size: 20px;
+            font-size: 22px;
         }
 
         .chord-popup {
             position: fixed;
-            bottom: 70px;
-            right: 20px;
+            bottom: 80px;
+            right: 24px;
             background: var(--bg-card);
             border: 2px solid var(--accent);
             border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 20px;
+            box-shadow: var(--shadow-xl);
             z-index: 51;
             opacity: 0;
             transform: scale(0.9) translateY(10px);
             transition: all 0.3s;
             pointer-events: none;
+            max-width: 280px;
         }
 
         .chord-popup.active {
@@ -1125,14 +947,16 @@
         }
 
         .chord-popup h4 {
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 8px;
             color: var(--accent);
+            font-weight: 600;
         }
 
         .chord-popup p {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-secondary);
+            line-height: 1.5;
         }
 
         /* Hero Image Styles */
@@ -1147,45 +971,16 @@
             height: 100%;
             border-radius: 20px;
             object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-xl);
             position: relative;
             z-index: 2;
-        }
-
-        /* Vinyl record background for hero image */
-        .hero-image-vinyl {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            background: linear-gradient(
-                repeating-conic-gradient(from 0deg at 50% 50%, 
-                    #1a1a1a 0deg, 
-                    #2a2a2a 1deg, 
-                    #1a1a1a 2deg) 50% / 100% 100%
-            );
-            opacity: 0.1;
-            animation: slowSpin 30s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes slowSpin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .hero-image-container:hover .hero-image-vinyl {
-            animation-duration: 3s;
         }
 
         .hero-image-fallback {
             width: 280px;
             height: 280px;
             border-radius: 20px;
-            background: linear-gradient(135deg, var(--accent), var(--music-accent));
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             display: none;
             align-items: center;
             justify-content: center;
@@ -1194,6 +989,7 @@
             color: white;
             position: relative;
             z-index: 2;
+            box-shadow: var(--shadow-xl);
         }
         
         @media (min-width: 1440px) {
@@ -1208,11 +1004,6 @@
                 border-radius: 24px;
             }
             
-            .hero-image-vinyl {
-                width: 360px;
-                height: 360px;
-            }
-            
             .hero-content {
                 display: grid;
                 grid-template-columns: 1fr auto;
@@ -1223,14 +1014,6 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-            
-            .cursor {
-                display: none;
-            }
-
             .container {
                 padding: 0 20px;
             }
@@ -1267,7 +1050,8 @@
 
             .experience-item {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 16px;
+                padding: 24px;
             }
             
             .experience-period {
@@ -1285,18 +1069,18 @@
             }
             
             section {
-                padding: 50px 0;
+                padding: 60px 0;
             }
             
             .contact {
-                padding: 60px 0;
+                padding: 80px 0;
             }
 
             .chord-easter-egg {
-                bottom: 10px;
-                right: 10px;
-                width: 35px;
-                height: 35px;
+                bottom: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
             }
 
             .contact-title::after {
@@ -1308,11 +1092,6 @@
             .hero-image-fallback {
                 width: 220px;
                 height: 220px;
-            }
-            
-            .hero-image-vinyl {
-                width: 260px;
-                height: 260px;
             }
             
             .hero-content {
@@ -1366,8 +1145,8 @@
             }
             
             .social-link {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
             }
             
             .project-card {
@@ -1384,19 +1163,19 @@
             
             .tech-tag {
                 font-size: 11px;
-                padding: 3px 8px;
+                padding: 4px 8px;
             }
             
             section {
-                padding: 40px 0;
+                padding: 50px 0;
             }
             
             .contact-title {
-                font-size: 28px;
+                font-size: 32px;
             }
             
             .contact-description {
-                font-size: 14px;
+                font-size: 15px;
             }
             
             .hero-image-container,
@@ -1405,20 +1184,13 @@
                 width: 180px;
                 height: 180px;
             }
-            
-            .hero-image-vinyl {
-                width: 220px;
-                height: 220px;
-            }
         }
 
         /* Print styles */
         @media print {
             .gradient-orb,
             .social-links,
-            .music-notes,
-            .chord-easter-egg,
-            .piano-keys {
+            .chord-easter-egg {
                 display: none;
             }
             
@@ -1433,7 +1205,6 @@
     </style>
 </head>
 <body>
-    <div class="cursor">♪</div>
     <div class="gradient-orb"></div>
 
     <header>
@@ -1450,18 +1221,6 @@
     </header>
 
     <section class="hero">
-        <div class="music-notes">
-            <span class="note">♪</span>
-            <span class="note">♫</span>
-            <span class="note">♪</span>
-            <span class="note">♬</span>
-            <span class="note">♩</span>
-            <span class="note">♪</span>
-            <span class="note">♫</span>
-            <span class="note">♬</span>
-            <span class="note">♪</span>
-            <span class="note">♩</span>
-        </div>
         <div class="container">
             <div class="hero-content" style="display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center;">
                 <div>
@@ -1497,7 +1256,6 @@
                     </div>
                 </div>
                 <div class="hero-image-container">
-                    <div class="hero-image-vinyl"></div>
                     <img src="images/headshot.jpg" 
                          alt="Michael Maaseide" 
                          class="hero-image"
@@ -1512,13 +1270,6 @@
 
     <section id="projects">
         <div class="container">
-            <div class="section-divider">
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-            </div>
             <h2 class="section-label">Featured Projects</h2>
             <div class="projects-grid">
                 <a href="https://apps.apple.com/us/app/chordcrack/id6752358083" target="_blank" class="project-card">
@@ -1686,13 +1437,6 @@
 
     <section id="experience">
         <div class="container">
-            <div class="section-divider">
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-                <div class="staff-line"></div>
-            </div>
             <h2 class="section-label">Experience</h2>
             <div class="experience-list">
                 <div class="experience-item">
@@ -1741,20 +1485,6 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <div class="piano-keys">
-                <div class="key"></div>
-                <div class="key black"></div>
-                <div class="key"></div>
-                <div class="key black"></div>
-                <div class="key"></div>
-                <div class="key"></div>
-                <div class="key black"></div>
-                <div class="key"></div>
-                <div class="key black"></div>
-                <div class="key"></div>
-                <div class="key black"></div>
-                <div class="key"></div>
-            </div>
             <div class="contact-content">
                 <h2 class="contact-title">Let's build something together</h2>
                 <p class="contact-description">
@@ -1803,28 +1533,6 @@
     </script>
 
     <script>
-        // Custom cursor with music notes
-        const cursor = document.querySelector('.cursor');
-
-        document.addEventListener('mousemove', (e) => {
-            if (cursor) {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            }
-        });
-
-        // Change cursor on hover over clickable elements - just switch between single and double note
-        document.addEventListener('mouseover', (e) => {
-            const clickable = e.target.closest('a, button, .project-card, .social-link, .nav-link, .contact-cta, .chord-easter-egg');
-            if (clickable) {
-                cursor.classList.add('hovering');
-                cursor.textContent = '♫'; // Double note when hovering
-            } else {
-                cursor.classList.remove('hovering');
-                cursor.textContent = '♪'; // Single note normally
-            }
-        });
-
         // Create floating notes on click
         const notes = ['♪', '♫', '♬', '♩', '♮'];
         let noteIndex = 0;
@@ -1842,7 +1550,7 @@
             note.textContent = notes[noteIndex % notes.length];
             note.style.left = x + 'px';
             note.style.top = y + 'px';
-            note.style.color = getComputedStyle(document.documentElement).getPropertyValue('--music-accent');
+            note.style.color = getComputedStyle(document.documentElement).getPropertyValue('--accent');
             document.body.appendChild(note);
             noteIndex++;
             
@@ -1853,7 +1561,7 @@
 
         // Simple sound generation (Web Audio API)
         let audioContext;
-        const noteFrequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25]; // C major scale
+        const noteFrequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
 
         function initAudio() {
             if (!audioContext) {
@@ -1884,14 +1592,15 @@
 
         // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', (e) => {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(anchor.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
+
 
         // Intersection Observer for animations
         const observerOptions = {
@@ -1904,7 +1613,6 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                     
-                    // Play a subtle chord when sections come into view
                     if (entry.target.classList.contains('section-label')) {
                         playChordProgression();
                     }
@@ -1919,10 +1627,10 @@
         // Chord progression for sections
         let chordIndex = 0;
         const chords = [
-            [261.63, 329.63, 392.00], // C major
-            [220.00, 277.18, 329.63], // A minor
-            [174.61, 220.00, 261.63], // F major
-            [196.00, 246.94, 293.66]  // G major
+            [261.63, 329.63, 392.00],
+            [220.00, 277.18, 329.63],
+            [174.61, 220.00, 261.63],
+            [196.00, 246.94, 293.66]
         ];
 
         function playChordProgression() {
@@ -1932,7 +1640,7 @@
             const chord = chords[chordIndex % chords.length];
             chord.forEach((frequency, index) => {
                 setTimeout(() => {
-                    playNote(frequency, 0.05, 0.3);
+                    playNote(frequency, 0.03, 0.2);
                 }, index * 50);
             });
             chordIndex++;
@@ -1955,38 +1663,33 @@
             oscillator.stop(audioContext.currentTime + duration);
         }
 
-        // Parallax scrolling for background elements
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const orb = document.querySelector('.gradient-orb');
-            const musicNotes = document.querySelectorAll('.note');
+        // ChordCrack Easter Egg - Fixed with proper event handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const chordToggle = document.getElementById('chordToggle');
+            const chordPopup = document.getElementById('chordPopup');
             
-            if (orb) {
-                orb.style.transform = `translateY(${scrolled * 0.2}px)`;
+            console.log('ChordToggle element:', chordToggle);
+            console.log('ChordPopup element:', chordPopup);
+            
+            if (chordToggle && chordPopup) {
+                chordToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); // prevent outside click handler from firing
+                    chordPopup.classList.toggle('active');
+                    playChordSound();
+                });
+                
+                // Close popup when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!chordToggle.contains(e.target) && !chordPopup.contains(e.target)) {
+                        chordPopup.classList.remove('active');
+                    }
+                });
+                
+                console.log('Easter egg event listeners attached successfully');
+            } else {
+                console.error('Could not find chord toggle or popup elements');
             }
-            
-            musicNotes.forEach((note, index) => {
-                note.style.transform = `translateY(${scrolled * (0.1 + index * 0.02)}px)`;
-            });
         });
-
-        // ChordCrack Easter Egg
-        const chordToggle = document.getElementById('chordToggle');
-        const chordPopup = document.getElementById('chordPopup');
-        
-        if (chordToggle && chordPopup) {
-            chordToggle.addEventListener('click', () => {
-                chordPopup.classList.toggle('active');
-                playChordSound();
-            });
-            
-            // Close popup when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!chordToggle.contains(e.target) && !chordPopup.contains(e.target)) {
-                    chordPopup.classList.remove('active');
-                }
-            });
-        }
 
         function playChordSound() {
             initAudio();
@@ -2000,13 +1703,6 @@
                 }, index * 30);
             });
         }
-
-        // Add hover effects to project cards
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                playNote(440, 0.03, 0.1); // A note on hover
-            });
-        });
 
         // Initialize audio context on first user interaction
         document.addEventListener('click', initAudio, { once: true });
