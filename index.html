@@ -397,10 +397,13 @@
         .status-dot {
             width: 8px;
             height: 8px;
+            min-width: 8px;
+            min-height: 8px;
             background: var(--accent);
             border-radius: 50%;
             box-shadow: 0 0 0 2px var(--accent-faint);
             animation: pulse 2s infinite;
+            flex-shrink: 0;
         }
 
         @keyframes pulse {
@@ -1112,7 +1115,7 @@
             
             .hero-content {
                 display: flex !important;
-                flex-direction: column;
+                flex-direction: column-reverse;
                 align-items: center;
                 text-align: center;
                 gap: 0 !important;
