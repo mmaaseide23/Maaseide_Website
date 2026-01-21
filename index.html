@@ -529,7 +529,8 @@
         }
 
         .project-card {
-            display: block;
+            display: flex;
+            flex-direction: column;
             background: var(--bg-card);
             border: 1px solid var(--border);
             padding: 32px;
@@ -611,6 +612,12 @@
             margin-bottom: 20px;
         }
 
+        .project-header,
+        .project-description,
+        .project-tech {
+            width: 100%;
+        }
+
         .project-info {
             display: flex;
             align-items: center;
@@ -669,6 +676,7 @@
             line-height: 1.6;
             color: var(--text-secondary);
             margin-bottom: 24px;
+            width: 100%;
         }
         
         @media (min-width: 1440px) {
@@ -683,6 +691,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            width: 100%;
         }
 
         .tech-tag {
@@ -692,6 +701,11 @@
             color: var(--text-secondary);
             font-weight: 500;
             border: 1px solid var(--border-light);
+        }
+
+        .tech-tag-link:hover {
+            filter: brightness(0.95);
+            transform: translateY(-1px);
         }
         
         @media (min-width: 1440px) {
@@ -1269,7 +1283,7 @@
                         <span class="tech-tag">SwiftUI</span>
                         <span class="tech-tag">Supabase</span>
                         <span class="tech-tag">Firebase Analytics</span>
-                        <a href="https://chordcrack.com" target="_blank" class="tech-tag" style="background: var(--accent-faint); color: var(--accent); text-decoration: none;" onclick="event.stopPropagation();">chordcrack.com</a>
+                        <span class="tech-tag tech-tag-link" style="background: var(--accent-faint); color: var(--accent); cursor: pointer;" onclick="event.stopPropagation(); window.open('https://chordcrack.com', '_blank');">chordcrack.com</span>
                     </div>
                 </a>
 
