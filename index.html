@@ -60,11 +60,6 @@
             --border: #e2e8f0;
             --border-light: #f1f5f9;
             
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            
             --music-accent: #7c3aed;
             --music-accent-light: #a855f7;
         }
@@ -388,18 +383,15 @@
             padding: 12px 20px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
             transition: all 0.2s;
-            box-shadow: var(--shadow-sm);
         }
 
         .status-indicator:hover {
             border-color: var(--accent-light);
             background: var(--bg-hover);
-            box-shadow: var(--shadow-md);
         }
 
         .status-dot {
@@ -433,7 +425,6 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            border-radius: 10px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-secondary);
@@ -441,7 +432,6 @@
             transition: all 0.2s;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
         }
 
         .social-link::before {
@@ -451,7 +441,6 @@
             left: 50%;
             width: 0;
             height: 0;
-            border-radius: 50%;
             background: var(--accent-faint);
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s;
@@ -466,7 +455,6 @@
             border-color: var(--accent);
             color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
         }
 
         .social-link svg {
@@ -544,7 +532,6 @@
             display: block;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
             padding: 32px;
             text-decoration: none;
             color: inherit;
@@ -554,8 +541,6 @@
             animation: slideUp 0.6s ease forwards;
             position: relative;
             overflow: hidden;
-            cursor: pointer;
-            box-shadow: var(--shadow-sm);
         }
         
         @media (min-width: 1440px) {
@@ -564,39 +549,47 @@
             }
         }
 
-        .project-card::after {
-            content: '↗';
+        /* Hover effects only for linked projects */
+        a.project-card {
+            cursor: pointer;
+        }
+
+        a.project-card::after {
+            content: '→';
             position: absolute;
-            top: 24px;
-            right: 24px;
-            width: 36px;
-            height: 36px;
+            bottom: 32px;
+            right: 32px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--primary);
-            border-radius: 8px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             color: white;
             opacity: 0;
-            transform: scale(0.8) rotate(-45deg);
-            transition: all 0.3s ease;
+            transform: translateX(-8px);
+            transition: all 0.2s ease;
         }
 
-        .project-card:hover::after {
+        a.project-card:hover::after {
             opacity: 1;
-            transform: scale(1) rotate(0deg);
+            transform: translateX(0px);
         }
 
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
+        a.project-card:hover {
+            transform: translateY(-2px);
             border-color: var(--accent-light);
         }
         
-        .project-card:hover .project-title {
+        a.project-card:hover .project-title {
             color: var(--accent);
+        }
+
+        /* Non-linked projects have minimal hover effect */
+        div.project-card:hover {
+            background: var(--bg-hover);
         }
 
         @keyframes slideUp {
@@ -627,7 +620,6 @@
         .project-logo {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -643,7 +635,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 12px;
         }
 
         .project-meta {
@@ -667,7 +658,6 @@
             padding: 6px 12px;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
             color: white;
-            border-radius: 8px;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
@@ -698,7 +688,6 @@
         .tech-tag {
             padding: 6px 12px;
             background: var(--bg-hover);
-            border-radius: 6px;
             font-size: 12px;
             color: var(--text-secondary);
             font-weight: 500;
@@ -717,7 +706,6 @@
             display: grid;
             gap: 2px;
             background: var(--border);
-            border-radius: 12px;
             overflow: hidden;
         }
 
@@ -735,6 +723,8 @@
 
         .experience-item:nth-child(1) { animation-delay: 0.1s; }
         .experience-item:nth-child(2) { animation-delay: 0.2s; }
+        .experience-item:nth-child(3) { animation-delay: 0.3s; }
+        .experience-item:nth-child(4) { animation-delay: 0.4s; }
 
         @keyframes fadeIn {
             to {
@@ -783,7 +773,6 @@
         .company-logo {
             width: 20px;
             height: 20px;
-            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -798,7 +787,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 4px;
         }
 
         .experience-company:hover {
@@ -863,14 +851,12 @@
             padding: 16px 32px;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-lg);
         }
 
         .contact-cta::before {
@@ -891,7 +877,6 @@
 
         .contact-cta:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
         }
 
         /* Interactive Chord Easter Egg */
@@ -902,19 +887,16 @@
             width: 48px;
             height: 48px;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
             z-index: 50;
-            box-shadow: var(--shadow-lg);
         }
 
         .chord-easter-egg:hover {
             transform: scale(1.1);
-            box-shadow: var(--shadow-xl);
         }
 
         .chord-easter-egg::after {
@@ -929,9 +911,7 @@
             right: 24px;
             background: var(--bg-card);
             border: 2px solid var(--accent);
-            border-radius: 12px;
             padding: 20px;
-            box-shadow: var(--shadow-xl);
             z-index: 51;
             opacity: 0;
             transform: scale(0.9) translateY(10px);
@@ -969,9 +949,7 @@
         .hero-image {
             width: 100%;
             height: 100%;
-            border-radius: 20px;
             object-fit: cover;
-            box-shadow: var(--shadow-xl);
             position: relative;
             z-index: 2;
         }
@@ -979,7 +957,6 @@
         .hero-image-fallback {
             width: 280px;
             height: 280px;
-            border-radius: 20px;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             display: none;
             align-items: center;
@@ -989,7 +966,6 @@
             color: white;
             position: relative;
             z-index: 2;
-            box-shadow: var(--shadow-xl);
         }
         
         @media (min-width: 1440px) {
@@ -1001,7 +977,6 @@
             .hero-image, .hero-image-fallback {
                 width: 320px;
                 height: 320px;
-                border-radius: 24px;
             }
             
             .hero-content {
@@ -1276,7 +1251,7 @@
                     <div class="project-header">
                         <div class="project-info">
                             <div class="project-logo">
-                                <img src="images/logo.png" alt="ChordCrack" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                                <img src="images/logo.png" alt="ChordCrack" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="project-meta">
                                 <h3 class="project-title">ChordCrack</h3>
@@ -1294,7 +1269,7 @@
                         <span class="tech-tag">SwiftUI</span>
                         <span class="tech-tag">Supabase</span>
                         <span class="tech-tag">Firebase Analytics</span>
-                        <span class="tech-tag" style="background: var(--accent-faint); color: var(--accent);">chordcrack.com</span>
+                        <a href="https://chordcrack.com" target="_blank" class="tech-tag" style="background: var(--accent-faint); color: var(--accent); text-decoration: none;" onclick="event.stopPropagation();">chordcrack.com</a>
                     </div>
                 </a>
 
@@ -1330,7 +1305,7 @@
                     <div class="project-header">
                         <div class="project-info">
                             <div class="project-logo">
-                                <img src="images/NExT.jpeg" alt="NExT Consulting" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                                <img src="images/NExT.jpeg" alt="NExT Consulting" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="project-meta">
                                 <h3 class="project-title">NExT Web Portal</h3>
@@ -1440,12 +1415,54 @@
             <h2 class="section-label">Experience</h2>
             <div class="experience-list">
                 <div class="experience-item">
+                    <div class="experience-period">Jan 2026 - Present</div>
+                    <div>
+                        <h3 class="experience-role">Data Analyst</h3>
+                        <a href="https://generatenu.com" target="_blank" class="experience-company">
+                            <span class="company-logo" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5"/>
+                                </svg>
+                            </span>
+                            Generate Product Development Studio
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px;">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </a>
+                        <p class="experience-description">
+                            Building real-time data pipelines and analytics dashboards for a fitness tracking platform. 
+                            Developing infrastructure solutions and statistical analysis tools to support product development initiatives.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-period">Jan 2026 - Present</div>
+                    <div>
+                        <h3 class="experience-role">Teaching Assistant</h3>
+                        <div class="experience-company">
+                            <span class="company-logo" style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5"/>
+                                </svg>
+                            </span>
+                            Khoury College of Computer Sciences
+                        </div>
+                        <p class="experience-description">
+                            TA for Database Design (CS3200), supporting students with SQL, database modeling, 
+                            normalization, and query optimization. Leading office hours and grading assignments 
+                            for a class of 200+ students.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="experience-item">
                     <div class="experience-period">Jul 2025 - Present</div>
                     <div>
                         <h3 class="experience-role">Software Engineer</h3>
                         <a href="https://nunext.dev" target="_blank" class="experience-company">
                             <span class="company-logo">
-                                <img src="images/NExT.jpeg" alt="NExT" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                                <img src="images/NExT.jpeg" alt="NExT" style="width: 100%; height: 100%; object-fit: cover;">
                             </span>
                             NExT Consulting
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px;">
