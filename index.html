@@ -956,21 +956,24 @@
         /* Hero Image Styles */
         .hero-image-container {
             position: relative;
-            width: 300px;
-            height: 350px;
+            width: 320px;
+            height: 320px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .hero-image {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: center 30%;
             position: relative;
             z-index: 2;
         }
 
         .hero-image-fallback {
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             display: none;
             align-items: center;
@@ -980,17 +983,30 @@
             color: white;
             position: relative;
             z-index: 2;
+            border-radius: 8px;
         }
-        
-        @media (min-width: 1440px) {
+
+        @media (min-width: 1024px) {
             .hero-image-container {
-                width: 320px;
-                height: 320px;
+                width: 360px;
+                height: 360px;
             }
             
-            .hero-image, .hero-image-fallback {
-                width: 320px;
-                height: 320px;
+            .hero-image-fallback {
+                width: 360px;
+                height: 360px;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .hero-image-container {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .hero-image-fallback {
+                width: 400px;
+                height: 400px;
             }
             
             .hero-content {
@@ -1013,21 +1029,28 @@
             }
 
             .hero {
-                padding: 120px 0 60px;
+                padding: 100px 0 50px;
             }
             
             h1 {
-                font-size: clamp(32px, 8vw, 48px);
+                font-size: clamp(28px, 7vw, 40px);
                 line-height: 1.2;
+                margin-bottom: 20px;
             }
             
             .hero-description {
                 font-size: 16px;
+                margin-bottom: 28px;
+            }
+            
+            .hero-label {
+                font-size: 12px;
+                margin-bottom: 20px;
             }
 
             .hero-actions {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
                 width: 100%;
                 gap: 16px;
             }
@@ -1076,21 +1099,23 @@
                 display: none;
             }
             
-            .hero-image-container,
-            .hero-image,
+            .hero-image-container {
+                width: 240px;
+                height: 240px;
+                margin: 0 auto 36px;
+            }
+            
             .hero-image-fallback {
-                width: 220px;
-                height: 220px;
+                width: 240px;
+                height: 240px;
             }
             
             .hero-content {
-                grid-template-columns: 1fr !important;
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
                 text-align: center;
-            }
-            
-            .hero-content > div:last-child {
-                order: -1;
-                margin-bottom: 40px;
+                gap: 0 !important;
             }
             
             .hero-actions {
@@ -1099,6 +1124,7 @@
             
             .social-links {
                 justify-content: center;
+                width: 100%;
             }
         }
 
@@ -1113,20 +1139,34 @@
             }
             
             .hero {
-                padding: 100px 0 40px;
+                padding: 90px 0 40px;
             }
             
             h1 {
-                font-size: 28px;
+                font-size: 26px;
+                margin-bottom: 16px;
             }
             
             .hero-label {
                 font-size: 11px;
+                margin-bottom: 16px;
             }
             
             .hero-description {
                 font-size: 15px;
                 line-height: 1.6;
+                margin-bottom: 24px;
+            }
+            
+            .hero-image-container {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 32px;
+            }
+            
+            .hero-image-fallback {
+                width: 200px;
+                height: 200px;
             }
             
             .social-links {
@@ -1165,13 +1205,6 @@
             
             .contact-description {
                 font-size: 15px;
-            }
-            
-            .hero-image-container,
-            .hero-image,
-            .hero-image-fallback {
-                width: 180px;
-                height: 180px;
             }
         }
 
