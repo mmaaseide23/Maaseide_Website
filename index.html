@@ -1281,10 +1281,17 @@
                     </div>
                 </div>
                 <div class="hero-image-container">
-                    <img src="images/headshot.jpg" 
-                         alt="Michael Maaseide" 
-                         class="hero-image"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <picture>
+                        <source srcset="images/headshot.webp" type="image/webp">
+                        <img src="images/headshot-optimized.jpg"
+                             alt="Michael Maaseide"
+                             class="hero-image"
+                             width="533"
+                             height="800"
+                             fetchpriority="high"
+                             decoding="async"
+                             onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='flex';">
+                    </picture>
                     <div class="hero-image-fallback">
                         M
                     </div>
