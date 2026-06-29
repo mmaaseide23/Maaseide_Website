@@ -37,9 +37,12 @@
   .js-anim .rv-r{opacity:0;transform:translateX(60px);transition:opacity .95s cubic-bezier(.2,.7,.24,1),transform .95s cubic-bezier(.2,.7,.24,1)}
   .js-anim .rv.in,.js-anim .rv-l.in,.js-anim .rv-r.in,.js-anim .rv-s.in,.js-anim .rv-b.in,.js-anim .rv-io.in{opacity:1;transform:none}
   /* Scroll-scrubbed hero recede: only enabled when scroll-driven animations genuinely work (html.sda, set by JS). */
-  .sda .hero-recede{animation:heroRecede linear both;animation-timeline:view();animation-range:exit -8% exit 94%}
+  .sda .hero-recede{animation:heroRecede linear both;animation-timeline:view();animation-range:exit 0% exit 95%}
   @media (prefers-reduced-motion:reduce){.sda .hero-recede,[style*="heroUp"]{animation:none!important}.js-anim .rv,.js-anim .rv-l,.js-anim .rv-r,.js-anim .rv-s,.js-anim .rv-b,.js-anim .rv-io{opacity:1;transform:none;transition:none}}
-  .site-header.scrolled{background:rgba(20,17,15,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:rgba(255,255,255,.06)}
+  /* Frosted layer lives on a pseudo-element and fades via OPACITY (not by toggling backdrop-filter,
+     which can leave a residual blur at the top in some browsers). At the top opacity:0 = zero blur. */
+  .site-header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(20,17,15,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);opacity:0;transition:opacity .3s ease;pointer-events:none}
+  .site-header.scrolled::before{opacity:1}
   @media (max-width:880px){
     .nav-links{display:none!important}
     .hero-grid{grid-template-columns:1fr!important;text-align:center;gap:40px!important;justify-items:center}
@@ -80,7 +83,7 @@
 
 <div class="site" style="position:relative;z-index:1">
 
-  <header class="site-header" style="position:fixed;top:0;left:0;right:0;z-index:60;background:transparent;border-bottom:1px solid transparent;transition:background .3s ease,backdrop-filter .3s ease,border-color .3s ease">
+  <header class="site-header" style="position:fixed;top:0;left:0;right:0;z-index:60;background:transparent">
     <nav style="max-width:1140px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between">
       <a href="#top" data-note style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:16px;letter-spacing:-.01em;color:#efe9df">
         <span style="width:8px;height:8px;border-radius:50%;background:#d99a4e"></span>
