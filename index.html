@@ -4,421 +4,526 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Michael Maaseide · Data Science · Machine Learning · Engineering</title>
-<meta name="description" content="Michael Maaseide, a data science student at Northeastern building ML-powered products, from a published iOS app to real-time analytics platforms.">
+<meta name="description" content="Michael Maaseide, a data science student at Northeastern building data and ML products, from an iOS ear-training app to sensor analytics for track and field coaches.">
 <meta name="author" content="Michael Maaseide">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="canonical" href="https://www.michaelmaaseide.com/">
 <meta property="og:title" content="Michael Maaseide">
 <meta property="og:description" content="Turning complex data into intelligent systems.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://www.michaelmaaseide.com/">
+<meta property="og:image" content="https://www.michaelmaaseide.com/images/headshot-optimized.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23eaa54f'/%3E%3Cpath d='M8 23V9h3l5 7 5-7h3v14h-3v-9l-5 7-5-7v9z' fill='%231b1307'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/headshot.webp" type="image/webp" fetchpriority="high">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:96px}
-  body{background:#14110f;color:#efe9df;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
-  ::selection{background:rgba(217,154,78,.22);color:#f0cd95}
-  a{color:inherit}
-  @keyframes heroUp{from{transform:translateY(26px)}to{transform:translateY(0)}}
-  @keyframes heroRecede{from{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}to{opacity:.1;transform:scale(.9) translateY(-46px);filter:blur(5px)}}
-  @keyframes rUp{from{opacity:0;transform:translateY(72px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-  @keyframes rLeft{from{opacity:0;transform:translateX(-76px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes rRight{from{opacity:0;transform:translateX(76px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes rScale{from{opacity:0;transform:translateY(64px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
-  @keyframes rBlur{from{opacity:0;transform:translateY(54px);filter:blur(16px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
-  @keyframes floatNote{0%{transform:translateY(0) rotate(0);opacity:.9}100%{transform:translateY(-90px) rotate(220deg);opacity:0}}
-  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(217,154,78,.45)}50%{box-shadow:0 0 0 6px rgba(217,154,78,0)}}
-  @keyframes rInOut{0%{opacity:0;transform:translateY(46px)}18%{opacity:1;transform:translateY(0)}80%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-34px)}}
-  /* Reveals are driven by IntersectionObserver on ALL browsers (see initReveals) for cross-browser parity.
-     Firefox reports `@supports (animation-timeline: view())` as true but doesn't run them as scroll-linked,
-     so we no longer gate on that. The hidden state only applies once JS adds .js-anim (graceful no-JS fallback). */
-  .js-anim .rv,.js-anim .rv-s,.js-anim .rv-b,.js-anim .rv-io{opacity:0;transform:translateY(42px);transition:opacity .9s cubic-bezier(.2,.7,.24,1),transform .9s cubic-bezier(.2,.7,.24,1)}
-  .js-anim .rv-l{opacity:0;transform:translateX(-60px);transition:opacity .95s cubic-bezier(.2,.7,.24,1),transform .95s cubic-bezier(.2,.7,.24,1)}
-  .js-anim .rv-r{opacity:0;transform:translateX(60px);transition:opacity .95s cubic-bezier(.2,.7,.24,1),transform .95s cubic-bezier(.2,.7,.24,1)}
-  .js-anim .rv.in,.js-anim .rv-l.in,.js-anim .rv-r.in,.js-anim .rv-s.in,.js-anim .rv-b.in,.js-anim .rv-io.in{opacity:1;transform:none}
-  /* Scroll-scrubbed hero recede: only enabled when scroll-driven animations genuinely work (html.sda, set by JS). */
-  .sda .hero-recede{animation:heroRecede linear both;animation-timeline:view();animation-range:exit 0% exit 95%}
-  @media (prefers-reduced-motion:reduce){.sda .hero-recede,[style*="heroUp"]{animation:none!important}.js-anim .rv,.js-anim .rv-l,.js-anim .rv-r,.js-anim .rv-s,.js-anim .rv-b,.js-anim .rv-io{opacity:1;transform:none;transition:none}}
-  /* Frosted layer lives on a pseudo-element and fades via OPACITY (not by toggling backdrop-filter,
-     which can leave a residual blur at the top in some browsers). At the top opacity:0 = zero blur. */
-  .site-header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(20,17,15,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);opacity:0;transition:opacity .3s ease;pointer-events:none}
-  .site-header.scrolled::before{opacity:1}
-  @media (max-width:880px){
-    .nav-links{display:none!important}
-    .hero-grid{grid-template-columns:1fr!important;text-align:center;gap:40px!important;justify-items:center}
-    .hero-actions{justify-content:center!important}
-    .hero-photo{justify-self:center!important}
-    .exp-row{grid-template-columns:1fr!important;gap:6px!important}
-    .exp-period{margin-bottom:8px}
-    .two-col{grid-template-columns:1fr!important}
+  /* Design tokens. Full system documented in .claude/DESIGN.md.
+     Shape rule: tags 6px, buttons 8px, cards 12px, panels + portrait 16px. */
+  :root{
+    color-scheme:dark;
+    --canvas:#0a0a0b;
+    --surface-1:#111114;
+    --surface-2:#17171b;
+    --hairline:#24242a;
+    --hairline-strong:#34343c;
+    --ink:#f3f3f4;
+    --ink-muted:#c8c8ce;
+    --ink-soft:#a6a6af;
+    --ink-subtle:#8e8e97;
+    --accent:#eaa54f;
+    --accent-hover:#f4bd76;
+    --on-accent:#1b1307;
+    --accent-soft:rgba(234,165,79,.1);
+    --accent-line:rgba(234,165,79,.4);
+    --r-tag:6px;--r-btn:8px;--r-card:12px;--r-panel:16px;
+    --font-sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --font-mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ease:cubic-bezier(.16,1,.3,1);
+    /* z-index scale */
+    --z-bg:0;--z-content:1;--z-header:50;--z-skip:60;--z-note:70;
   }
-  @media (max-width:980px){.proj-grid{grid-template-columns:repeat(2,1fr)!important}}
-  @media (max-width:600px){
-    .proj-grid{grid-template-columns:1fr!important}
-    .hero-actions>div{flex-wrap:wrap;justify-content:center}
-    .hero{padding-top:104px!important;padding-bottom:60px!important}
-    .hero h1{font-size:34px!important;line-height:1.08!important}
-    #top>div{padding-left:20px!important;padding-right:20px!important}
-    #about{padding:72px 20px 56px!important}
-    #projects{padding:48px 20px!important}
-    #experience{padding:48px 20px!important}
-    #contact{padding:64px 20px 32px!important}
-    #contact>div{padding:52px 22px!important}
-    nav{padding-left:20px!important;padding-right:20px!important}
-    footer{padding-left:20px!important;padding-right:20px!important}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:80px;-webkit-text-size-adjust:100%;touch-action:manipulation;-webkit-tap-highlight-color:rgba(234,165,79,.15)}
+  body{background:var(--canvas);color:var(--ink);font:400 16px/1.6 var(--font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:rgba(234,165,79,.25);color:var(--ink)}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  ul,ol{list-style:none}
+  h1,h2,h3,h4{font-weight:600;text-wrap:balance}
+  p{text-wrap:pretty}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .skip{position:fixed;left:16px;top:12px;z-index:var(--z-skip);background:var(--accent);color:var(--on-accent);padding:10px 14px;border-radius:var(--r-btn);font-weight:500;text-decoration:none;transform:translateY(-160%);transition:transform .2s var(--ease)}
+  .skip:focus{transform:none}
+  .i{width:1em;height:1em;flex-shrink:0;fill:currentColor}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 32px}
+
+  /* ---------- motion ---------- */
+  @keyframes heroUp{from{transform:translateY(22px)}to{transform:translateY(0)}}
+  @keyframes heroRecede{from{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}to{opacity:.1;transform:scale(.92) translateY(-40px);filter:blur(5px)}}
+  @keyframes floatNote{0%{transform:translateY(0) rotate(0);opacity:.9}100%{transform:translateY(-90px) rotate(220deg);opacity:0}}
+  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(234,165,79,.5)}50%{box-shadow:0 0 0 5px rgba(234,165,79,0)}}
+  .enter{animation:heroUp .9s var(--ease) both;animation-delay:calc(var(--d,0) * 80ms + 40ms)}
+  /* Reveals are driven by IntersectionObserver; the hidden state only applies once JS adds .js-anim. */
+  .js-anim .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0) * 70ms)}
+  .js-anim .rv.in{opacity:1;transform:none}
+  /* Scroll-scrubbed hero recede: only where scroll-driven animations genuinely work (html.sda, set by JS). */
+  .sda .hero-recede{animation:heroRecede linear both;animation-timeline:view();animation-range:exit 0% exit 95%}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .sda .hero-recede,.enter,.status-dot{animation:none!important}
+    .js-anim .rv{opacity:1;transform:none;transition:none}
   }
 
-  .ic{transition:border-color .25s,color .25s}
-  .ic:hover{border-color:#d99a4e;color:#e8b974}
-  .ghost{transition:border-color .25s,color .25s}
-  .ghost:hover{border-color:#d99a4e!important;color:#e8b974!important}
-  .proj:hover{border-color:rgba(217,154,78,.4)!important;background:rgba(217,154,78,.05)!important;transform:translateY(-4px)}
+  /* ---------- header ---------- */
+  .site{position:relative;z-index:var(--z-content)}
+  .top-sentinel{position:absolute;top:0;left:0;width:1px;height:8px;pointer-events:none}
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:var(--z-header)}
+  /* Frosted layer fades via opacity (toggling backdrop-filter can leave a residual blur in some browsers). */
+  .site-header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(10,10,11,.74);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--hairline);opacity:0;transition:opacity .3s ease;pointer-events:none}
+  .site-header.scrolled::before{opacity:1}
+  .nav{height:64px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-weight:600;font-size:15px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+  .nav-links{display:flex;gap:8px;align-items:center}
+  .nav-link{position:relative;padding:8px 12px;border-radius:var(--r-btn);text-decoration:none;color:var(--ink-subtle);font-size:14px;font-weight:500;transition:color .2s}
+  .nav-link:hover,.nav-link[aria-current]{color:var(--ink)}
+  .nav-link::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .nav-link[aria-current]::after{transform:scaleX(1)}
+  .nav-links .btn{margin-left:10px}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:var(--r-btn);font:500 15px/1 var(--font-sans);text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background-color .2s,border-color .2s,color .2s,transform .15s var(--ease)}
+  .btn:active{transform:translateY(1px) scale(.98)}
+  .btn-sm{height:36px;padding:0 14px;font-size:14px}
+  .btn-primary{background:var(--accent);color:var(--on-accent)}
+  .btn-primary:hover{background:var(--accent-hover)}
+  .btn-primary .i{transition:transform .25s var(--ease)}
+  .btn-primary:hover .i{transform:translateX(3px)}
+  .btn-secondary{background:var(--surface-1);color:var(--ink);border-color:var(--hairline-strong)}
+  .btn-secondary:hover{border-color:var(--accent-line);background:var(--surface-2)}
+  .icon-btn{width:44px;padding:0;color:var(--ink-muted);font-size:19px}
+  .icon-btn:hover{color:var(--accent-hover)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100dvh;display:flex;align-items:center;padding:112px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr);gap:64px;align-items:center}
+  .status{display:inline-flex;align-items:center;gap:10px;padding:7px 12px 7px 11px;margin-bottom:28px;border:1px solid var(--hairline-strong);border-radius:var(--r-tag);background:rgba(17,17,20,.7);font-size:14px;color:var(--ink-muted)}
+  .status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulseDot 2.4s ease-in-out infinite}
+  .hero h1{font-size:clamp(40px,4.6vw,62px);line-height:1.04;letter-spacing:-.035em;margin-bottom:24px}
+  .hl{color:var(--accent)}
+  .lede{font-size:clamp(17px,1.35vw,19px);line-height:1.6;color:var(--ink-soft);max-width:42ch;margin-bottom:36px}
+  .hero-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .hero-actions .btn-primary{margin-right:8px}
+  .portrait{justify-self:end;width:min(360px,100%)}
+  .portrait-frame{position:relative;border-radius:var(--r-panel);overflow:hidden;border:1px solid var(--hairline-strong);aspect-ratio:780/1170;box-shadow:0 40px 80px -32px rgba(0,0,0,.8);background:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAkABgDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAQBAgUD/8QAKhAAAgEDAgQGAgMAAAAAAAAAAQIDAAQRBSESIjFBYRMUUXGBkdH/xAAWAQEBAQAAAAAAAAAAAAAAAAADAgT/xAAdEQEAAgICAwAAAAAAAAAAAAABAAIRIQMyIjFR/9oADAMBAAIRAxEAPwCu204W2mSRePWJWYCXDMvUQNuxHmN8V5aYNP5y20GqQyOCo5XM2bByAOnB3Odvet5rfRI7WWGO6kE1xD0sf4qWHmcZHrXDsdItGlhLFIlEqkvxY6QQTnJODjPlufqXHyVUXeZ3/wASuoz8yHVhxDhzy/klc/FKybHQHcKtxNk+QkH6pV5CHt9yDT3tH4pUtEddlIcDJbJ7d/UVpaxhSZ/DDilOQuBgZIzjuNvnb6rFvdRpFHLHGic0qxVuwAHl7nv/AH/tGYwzdQiVshkVs4J7j7zS14xqKSG6KDKhLZo5aa2iSJep8LuNj6d+9KiW8SG2kuZ4leNtyjEgH0G3zSg5Kg+JGquNsh0tebp8KkkBF4hj1GP3VVvcPNktjO3b5IpStgambO5zdelfk28ecK2WPuaUpWbk7R6dZ//Z') center/cover no-repeat}
+  .portrait-frame::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.08);pointer-events:none}
+  .portrait-frame img{width:100%;height:auto}
+
+  /* ---------- sections ---------- */
+  .below{position:relative;background:var(--canvas)}
+  .below::before{content:"";position:absolute;left:0;right:0;top:-160px;height:160px;background:linear-gradient(to bottom,rgba(10,10,11,0),var(--canvas));pointer-events:none}
+  .section{padding-top:120px}
+  .section-h{font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.03em;margin-bottom:48px}
+  .meta{font:500 12.5px/1.4 var(--font-mono);color:var(--ink-subtle);letter-spacing:.01em}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tags li{font:400 12.5px/1 var(--font-mono);color:var(--ink-muted);padding:7px 10px;border:1px solid var(--hairline-strong);border-radius:var(--r-tag);background:rgba(255,255,255,.015)}
+  .tag{display:inline-flex;align-items:center;font:500 12px/1 var(--font-mono);padding:6px 9px;border-radius:var(--r-tag);border:1px solid var(--hairline-strong);color:var(--ink-muted);white-space:nowrap}
+  .tag-live{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-hover)}
+
+  /* about */
+  .about{padding-top:96px}
+  .about-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:72px;align-items:end}
+  .statement{font-size:clamp(24px,2.55vw,33px);font-weight:500;line-height:1.3;letter-spacing:-.022em;color:var(--ink)}
+  .statement .hl{color:var(--accent-hover)}
+  .stack-h{font-size:14px;font-weight:500;color:var(--ink-subtle);margin-bottom:14px}
+  .tags-lg li{font-size:13.5px;padding:9px 12px}
+
+  /* featured projects: asymmetric bento */
+  .bento{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-rows:auto auto;gap:16px}
+  .feat{position:relative;display:flex;flex-direction:column;gap:18px;padding:28px;border-radius:var(--r-card);background:var(--surface-1);border:1px solid var(--hairline);text-decoration:none;color:inherit;overflow:hidden;transition:border-color .3s,background-color .3s,transform .3s var(--ease)}
+  a.feat:hover{border-color:var(--accent-line);transform:translateY(-3px)}
+  .feat h3{font-size:22px;letter-spacing:-.02em;line-height:1.2}
+  .feat p{font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:52ch}
+  .feat-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .feat-arrow{font-size:20px;color:var(--ink-subtle);transition:transform .3s var(--ease),color .3s}
+  a.feat:hover .feat-arrow{color:var(--accent);transform:translate(2px,-2px)}
+  .feat-lg{grid-row:span 2;justify-content:space-between;background:
+      radial-gradient(90% 60% at 100% 0%,rgba(234,165,79,.12),transparent 60%),
+      var(--surface-1)}
+  .shot{border-radius:var(--r-btn);overflow:hidden;border:1px solid var(--hairline-strong);background:#1a1a1a;box-shadow:0 24px 48px -28px rgba(0,0,0,.9)}
+  .shot img{width:100%;height:auto}
+  .shot figcaption{padding:10px 14px;border-top:1px solid var(--hairline);background:var(--surface-1);font:400 12px/1.5 var(--font-mono);color:var(--ink-subtle)}
+  .feat-lg h3{font-size:clamp(28px,3vw,38px);letter-spacing:-.03em;margin-bottom:12px}
+  .feat-lg p{font-size:16px;margin-bottom:22px}
+  .app-icon{width:56px;height:56px;border-radius:var(--r-card);border:1px solid var(--hairline-strong)}
+  .feat-metric{background:linear-gradient(160deg,var(--surface-2),var(--surface-1) 70%)}
+  .metric{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .metric-num{font-size:clamp(44px,4.6vw,60px);font-weight:600;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .metric-label{font-size:14px;color:var(--ink-subtle)}
+
+  /* more projects: two-column index */
+  .more{margin-top:72px}
+  .more-h{font-size:14px;font-weight:500;color:var(--ink-subtle);padding-bottom:16px;border-bottom:1px solid var(--hairline);margin-bottom:12px}
+  .index{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 32px}
+  .entry{display:block;height:100%;padding:20px;margin:0 -20px;border-radius:var(--r-card);text-decoration:none;color:inherit;transition:background-color .25s}
+  a.entry:hover{background:var(--surface-1)}
+  .entry-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .entry h4{font-size:18px;letter-spacing:-.015em;line-height:1.3}
+  .entry-arrow{font-size:16px;color:var(--ink-subtle);transition:transform .25s var(--ease),color .25s}
+  a.entry:hover .entry-arrow{color:var(--accent);transform:translate(2px,-2px)}
+  .entry .meta{margin-bottom:10px}
+  .entry-desc{font-size:15px;line-height:1.6;color:var(--ink-soft);margin-bottom:10px}
+  .entry-stack{font:400 12.5px/1.5 var(--font-mono);color:var(--ink-subtle)}
+  .entry .tag{margin-left:auto}
+
+  /* experience: timeline */
+  .timeline{display:flex;flex-direction:column}
+  .role{display:grid;grid-template-columns:180px minmax(0,1fr);gap:40px}
+  .role-date{font:500 13.5px/1.5 var(--font-mono);color:var(--ink-subtle);font-variant-numeric:tabular-nums;padding-top:3px}
+  .role-body{position:relative;border-left:1px solid var(--hairline);padding:0 0 52px 32px}
+  .role:last-child .role-body{padding-bottom:0}
+  .role-body::before{content:"";position:absolute;left:-1px;top:4px;width:1px;height:24px;background:var(--accent)}
+  .role h3{font-size:21px;letter-spacing:-.02em;line-height:1.3;margin-bottom:6px}
+  .org{display:inline-block;max-width:100%;font-size:15px;line-height:1.5;color:var(--ink-muted);text-decoration:none;margin-bottom:14px}
+  a.org{color:var(--accent-hover)}
+  a.org:hover{color:var(--accent)}
+  .org img{display:inline-block;vertical-align:-5px;margin-right:9px;width:20px;height:20px;border-radius:4px;object-fit:cover}
+  .org .i{font-size:13px;vertical-align:-1px;margin-left:4px}
+  .role p{font-size:15px;line-height:1.65;color:var(--ink-soft);max-width:64ch}
+
+  /* contact */
+  .contact{padding-bottom:40px}
+  .cta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:end;padding:56px;border-radius:var(--r-panel);border:1px solid var(--hairline);background:radial-gradient(80% 120% at 0% 0%,rgba(234,165,79,.12),transparent 55%),var(--surface-1)}
+  .cta h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-.035em;margin-bottom:16px;max-width:14ch}
+  .cta p{font-size:17px;color:var(--ink-soft);max-width:46ch}
+  .cta-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+  /* footer */
+  .footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:32px;padding-bottom:48px;margin-top:80px;background:linear-gradient(var(--hairline),var(--hairline)) top center/calc(100% - 64px) 1px no-repeat;font-size:14px;color:var(--ink-subtle)}
+  .footer nav{display:flex;gap:22px}
+  .footer a{text-decoration:none;transition:color .2s}
+  .footer a:hover{color:var(--ink)}
+  .footer-note{color:var(--accent)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .bento{grid-template-columns:1fr}
+    .feat-lg{grid-row:auto}
+  }
+  @media (max-width:880px){
+    .nav-link{display:none}
+    .hero{min-height:auto}
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .portrait{justify-self:start;width:min(320px,78vw)}
+    .about-grid{grid-template-columns:1fr;gap:40px}
+    .index{grid-template-columns:1fr}
+    .role{grid-template-columns:1fr;gap:10px}
+    .role-body{padding-bottom:44px;padding-left:24px}
+    .cta{grid-template-columns:1fr;gap:32px;padding:40px 32px}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 20px}
+    .footer{background-size:calc(100% - 40px) 1px}
+    .hero{padding:96px 0 56px}
+    .hero h1{font-size:36px;line-height:1.08}
+    .section{padding-top:88px}
+    .about{padding-top:64px}
+    .feat{padding:24px}
+    .cta{padding:36px 22px}
+    .cta-actions .btn{flex:1 1 auto}
+  }
 </style>
 </head>
 <body>
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-anim');}catch(e){}})();</script>
-<div id="kg-layer" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,#181410,#14110f 38%)">
+
+<!-- Phosphor Icons (regular weight), https://phosphoricons.com, MIT -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+  <symbol id="i-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol>
+  <symbol id="i-envelope" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="kg-layer" aria-hidden="true" style="position:fixed;inset:0;z-index:var(--z-bg);pointer-events:none;background:linear-gradient(180deg,#0e0d0c,#0a0a0b 40%)">
   <canvas id="kg-canvas" style="display:block;width:100%;height:100%"></canvas>
 </div>
 
-<div class="site" style="position:relative;z-index:1">
+<div class="site">
+  <div class="top-sentinel" id="top-sentinel" aria-hidden="true"></div>
 
-  <header class="site-header" style="position:fixed;top:0;left:0;right:0;z-index:60;background:transparent">
-    <nav style="max-width:1140px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between">
-      <a href="#top" data-note style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:16px;letter-spacing:-.01em;color:#efe9df">
-        <span style="width:8px;height:8px;border-radius:50%;background:#d99a4e"></span>
-        Michael Maaseide
-      </a>
-      <div class="nav-links" style="display:flex;gap:34px;align-items:center">
-        <a href="#about" style="text-decoration:none;color:#9a9082;font-size:14.5px;font-weight:500">About</a>
-        <a href="#projects" style="text-decoration:none;color:#9a9082;font-size:14.5px;font-weight:500">Projects</a>
-        <a href="#experience" style="text-decoration:none;color:#9a9082;font-size:14.5px;font-weight:500">Experience</a>
-        <a href="#contact" data-note style="text-decoration:none;color:#14110f;background:#d99a4e;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:600">Contact</a>
+  <header class="site-header">
+    <nav class="wrap nav" aria-label="Primary">
+      <a href="#top" data-note class="brand">Michael Maaseide</a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#contact" data-note class="btn btn-primary btn-sm">Contact</a>
       </div>
     </nav>
   </header>
 
-  <section class="hero hero-recede" id="top" style="min-height:94vh;display:flex;align-items:center;padding:128px 0 90px">
-    <div style="max-width:1140px;margin:0 auto;padding:0 32px;width:100%">
-      <div class="hero-grid" style="display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center;width:100%">
+  <main id="main">
+    <section class="hero hero-recede" id="top">
+      <div class="wrap hero-grid">
         <div>
-          <div style="display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#e8b974;margin-bottom:26px;animation:heroUp .8s cubic-bezier(.22,.61,.36,1) .05s both">
-            <span style="width:24px;height:1px;background:linear-gradient(90deg,#d99a4e,transparent)"></span>
-            Data Science · Machine Learning · Engineering
-          </div>
-          <h1 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(40px,5.6vw,74px);line-height:1.02;letter-spacing:-.01em;margin-bottom:26px;animation:heroUp .9s cubic-bezier(.22,.61,.36,1) .12s both">Turning complex data into <span style="color:#e8b974">intelligent systems</span>.</h1>
-          <p style="font-size:18.5px;line-height:1.65;color:#a89e8f;max-width:520px;margin-bottom:34px;animation:heroUp .9s cubic-bezier(.22,.61,.36,1) .2s both">I'm Michael, a data science student at Northeastern building ML-powered products, from a published iOS app to real-time analytics platforms serving hundreds of users.</p>
-          <div class="hero-actions" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;animation:heroUp .9s cubic-bezier(.22,.61,.36,1) .28s both">
-            <a href="#projects" data-note style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;background:#d99a4e;color:#1a1408;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15px">View my work
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
-            </a>
-            <div style="display:flex;gap:10px;align-items:center">
-              <a href="https://github.com/mmaaseide23" target="_blank" data-note class="ic" aria-label="GitHub" style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.12);color:#cabfb0;text-decoration:none">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              </a>
-              <a href="https://www.linkedin.com/in/memaaseide" target="_blank" data-note class="ic" aria-label="LinkedIn" style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.12);color:#cabfb0;text-decoration:none">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 110-4.124 2.062 2.062 0 010 4.124zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </a>
-              <a href="mailto:maaseidemichael@gmail.com" data-note class="ic" aria-label="Email" style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.12);color:#cabfb0;text-decoration:none">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-              </a>
-              <span style="display:inline-flex;align-items:center;gap:8px;padding:0 16px;height:46px;border-radius:999px;border:1px solid rgba(217,154,78,.28);background:rgba(217,154,78,.07);font-size:13px;font-weight:500;color:#e8d9bf;white-space:nowrap">
-                <span style="width:8px;height:8px;border-radius:50%;background:#d99a4e;flex-shrink:0"></span>
-                Seeking full-time roles · June 2027
-              </span>
-            </div>
+          <p class="status enter" style="--d:0"><span class="status-dot" aria-hidden="true"></span>Open to full-time roles from June 2027</p>
+          <h1 class="enter" style="--d:1">Turning complex data into <span class="hl">intelligent systems</span>.</h1>
+          <p class="lede enter" style="--d:2">I'm Michael, a Northeastern data science student building data and ML products, from an iOS app to sports sensor analytics.</p>
+          <div class="hero-actions enter" style="--d:3">
+            <a href="#projects" data-note class="btn btn-primary">View my work <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <a href="https://github.com/mmaaseide23" target="_blank" rel="noopener" data-note class="btn btn-secondary icon-btn" aria-label="GitHub"><svg class="i" aria-hidden="true"><use href="#i-github"/></svg></a>
+            <a href="https://www.linkedin.com/in/memaaseide" target="_blank" rel="noopener" data-note class="btn btn-secondary icon-btn" aria-label="LinkedIn"><svg class="i" aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+            <a href="mailto:maaseidemichael@gmail.com" data-note class="btn btn-secondary icon-btn" aria-label="Email"><svg class="i" aria-hidden="true"><use href="#i-envelope"/></svg></a>
           </div>
         </div>
-        <div class="hero-photo" style="justify-self:end;position:relative;width:min(384px,82vw);animation:heroUp 1s cubic-bezier(.22,.61,.36,1) .22s both">
-          <div style="position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(145deg,rgba(217,154,78,.55),rgba(217,154,78,0) 58%);pointer-events:none"></div>
-          <div style="position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(217,154,78,.22);box-shadow:0 40px 90px -28px rgba(0,0,0,.8);aspect-ratio:780/1170;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAkABgDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAQBAgUD/8QAKhAAAgEDAgQGAgMAAAAAAAAAAQIDAAQRBSESIjFBYRMUUXGBkdH/xAAWAQEBAQAAAAAAAAAAAAAAAAADAgT/xAAdEQEAAgICAwAAAAAAAAAAAAABAAIRIQMyIjFR/9oADAMBAAIRAxEAPwCu204W2mSRePWJWYCXDMvUQNuxHmN8V5aYNP5y20GqQyOCo5XM2bByAOnB3Odvet5rfRI7WWGO6kE1xD0sf4qWHmcZHrXDsdItGlhLFIlEqkvxY6QQTnJODjPlufqXHyVUXeZ3/wASuoz8yHVhxDhzy/klc/FKybHQHcKtxNk+QkH6pV5CHt9yDT3tH4pUtEddlIcDJbJ7d/UVpaxhSZ/DDilOQuBgZIzjuNvnb6rFvdRpFHLHGic0qxVuwAHl7nv/AH/tGYwzdQiVshkVs4J7j7zS14xqKSG6KDKhLZo5aa2iSJep8LuNj6d+9KiW8SG2kuZ4leNtyjEgH0G3zSg5Kg+JGquNsh0tebp8KkkBF4hj1GP3VVvcPNktjO3b5IpStgambO5zdelfk28ecK2WPuaUpWbk7R6dZ//Z') center/cover no-repeat">
+        <div class="portrait enter" style="--d:2">
+          <div class="portrait-frame">
             <picture>
               <source srcset="images/headshot.webp" type="image/webp">
-              <img src="images/headshot-optimized.jpg" alt="Michael Maaseide" width="780" height="1170" fetchpriority="high" decoding="async" style="display:block;width:100%;height:auto">
+              <img src="images/headshot-optimized.jpg" alt="Michael Maaseide" width="780" height="1170" fetchpriority="high" decoding="async">
             </picture>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <div class="below" style="position:relative;background:#14110f">
-    <div style="position:absolute;left:0;right:0;top:-170px;height:170px;background:linear-gradient(to bottom,rgba(20,17,15,0),#14110f);pointer-events:none"></div>
-
-    <section id="about" style="max-width:1140px;margin:0 auto;padding:96px 32px 70px">
-      <div class="rv-io" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a7f70;margin-bottom:34px">
-        <span style="width:7px;height:7px;border-radius:50%;background:#d99a4e"></span>About
-      </div>
-      <div class="two-col" style="display:grid;grid-template-columns:1.4fr .9fr;gap:60px;align-items:start">
-        <p class="rv-b" style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(24px,2.7vw,34px);line-height:1.32;letter-spacing:-.01em;color:#e3dcd0">I work where <span style="color:#e8b974">data, machine learning, and software</span> meet, turning messy information into tools people actually use. I'm especially drawn to applied AI: embeddings, retrieval systems, and the quiet infrastructure that makes intelligent products feel effortless.</p>
-        <div class="rv-r">
-          <div style="font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8a7f70;margin-bottom:18px">What I work with</div>
-          <div style="display:flex;flex-wrap:wrap;gap:9px">
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">Python</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">Machine Learning</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">LLMs &amp; RAG</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">Django</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">React</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">Swift / SwiftUI</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">PostgreSQL</span>
-            <span style="padding:8px 14px;border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:13.5px;color:#cabfb0;background:rgba(255,255,255,.02)">AWS</span>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section id="projects" style="max-width:1140px;margin:0 auto;padding:70px 32px">
-      <div class="rv-io" style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:44px;flex-wrap:wrap">
-        <div>
-          <div style="display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a7f70;margin-bottom:16px">
-            <span style="width:7px;height:7px;border-radius:50%;background:#d99a4e"></span>Selected Work
-          </div>
-          <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(30px,4vw,46px);letter-spacing:-.005em;line-height:1.05">Things I've built</h2>
-        </div>
-      </div>
-      <div class="proj-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+    <div class="below">
 
-        <a href="https://github.com/GenerateNU/StrideTrack" target="_blank" data-note class="rv-s proj" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,transform .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">StrideTrack</div><div style="font-size:13px;color:#8a7f70">Generate · Sports Analytics</div></div>
-            </div>
-            <span style="font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#9a9082;border:1px solid rgba(255,255,255,.14);padding:5px 10px;border-radius:6px">Generate</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Real-time biomechanical feedback platform that replaces manual video analysis for track &amp; field coaches. Shoe-mounted sensors stream ground-contact time, fly time, step counts, and hurdle splits to a live analytics dashboard.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">FastAPI</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">React</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Supabase</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">OpenTelemetry</span>
-          </div>
-        </a>
-
-        <a href="https://apps.apple.com/us/app/chordcrack/id6752358083" target="_blank" data-note class="rv-s proj" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,transform .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;overflow:hidden;flex-shrink:0"><img src="images/logo.png" alt="ChordCrack" style="width:100%;height:100%;object-fit:cover"></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">ChordCrack</div><div style="font-size:13px;color:#8a7f70">iOS App · App Store</div></div>
-            </div>
-            <span style="font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#1a1408;background:#d99a4e;padding:5px 10px;border-radius:6px">Live</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Guitar ear-training app with daily chord-recognition puzzles, progressive difficulty, and competitive multiplayer. Built natively with Swift and SwiftUI.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Swift</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">SwiftUI</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Supabase</span>
-          </div>
-        </a>
-
-        <a href="https://github.com/samuelbaldwin05/QuoridorAI" target="_blank" data-note class="rv-s proj" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,transform .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">Quoridor AI</div><div style="font-size:13px;color:#8a7f70">Reinforcement Learning</div></div>
-            </div>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Deep RL agent that learns to play Quoridor through behavioral cloning and self-play. A PPO policy over a CNN board encoder reached a 97% win rate against a random bot and consistently beat a heuristic opponent.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">PyTorch</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">PPO</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Reinforcement Learning</span>
-          </div>
-        </a>
-
-        <div class="rv-s proj" style="display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">SEMS Platform</div><div style="font-size:13px;color:#8a7f70">ML Web Application</div></div>
-            </div>
-            <span style="font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#9a9082;border:1px solid rgba(255,255,255,.14);padding:5px 10px;border-radius:6px">Production</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">ML-powered student-experience matching using semantic embeddings to connect students with personalized opportunities. Serving 500+ daily users at 99% uptime.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Django</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">React</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Sentence Transformers</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">AWS ECS</span>
+      <section id="about" class="wrap section about" aria-labelledby="about-h">
+        <h2 id="about-h" class="sr-only">About</h2>
+        <div class="about-grid">
+          <p class="statement rv">I work where <span class="hl">data, machine learning, and software</span> meet, turning messy information into tools people actually use. I'm especially drawn to applied AI: embeddings, retrieval systems, and the quiet infrastructure that makes intelligent products feel effortless.</p>
+          <div class="rv" style="--i:1">
+            <h3 class="stack-h">What I work with</h3>
+            <ul class="tags tags-lg">
+              <li>Python</li>
+              <li>Machine Learning</li>
+              <li>LLMs &amp; RAG</li>
+              <li>Django</li>
+              <li>React</li>
+              <li>Swift / SwiftUI</li>
+              <li>PostgreSQL</li>
+              <li>AWS</li>
+            </ul>
           </div>
         </div>
+      </section>
 
-        <a href="https://deen1113.github.io/TopicDrift/" target="_blank" data-note class="rv-s proj" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,transform .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">TopicDrift</div><div style="font-size:13px;color:#8a7f70">SE Research · NLP</div></div>
+      <section id="projects" class="wrap section" aria-labelledby="projects-h">
+        <h2 id="projects-h" class="section-h rv">Things I've built</h2>
+
+        <div class="bento">
+          <a href="https://github.com/GenerateNU/StrideTrack" target="_blank" rel="noopener" data-note class="feat feat-lg rv">
+            <div class="feat-top">
+              <span class="meta">Generate · Team of 8</span>
+              <svg class="i feat-arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
             </div>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Fifty-year study of how software-engineering research questions shift over time, modeling ~11,000 ICSE papers with BERTopic to trace topic drift and validating detected onsets against dated field milestones.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">BERTopic</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Python</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">NLP</span>
-          </div>
-        </a>
-
-        <a href="https://github.com/jackc602/Fallacy-Detector" target="_blank" data-note class="rv-s proj" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,transform .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">Fallacy Detector</div><div style="font-size:13px;color:#8a7f70">NLP · Classification</div></div>
+            <figure class="shot">
+              <img src="images/stridetrack-hurdle.png" alt="Chart of raw force from one insole sensor during a hurdle trial, dropping to zero while the foot is in the air" width="616" height="468" loading="lazy">
+              <figcaption>Raw insole-sensor data from a hurdle trial, the input StrideTrack turns into metrics.</figcaption>
+            </figure>
+            <div>
+              <h3>StrideTrack</h3>
+              <p>Track &amp; field analytics for coaches. Insole sensors send data over Bluetooth to a web and iOS app, which computes ground contact time, flight time, step counts, and hurdle splits after each run.</p>
+              <ul class="tags"><li>FastAPI</li><li>React</li><li>Capacitor</li><li>Bluetooth LE</li><li>Supabase</li></ul>
             </div>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Detects and classifies thirteen types of logical fallacies in text, comparing TF-IDF, deep averaging networks, and fine-tuned transformers. RoBERTa reached the strongest macro-F1.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Python</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">PyTorch</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">RoBERTa</span>
-          </div>
-        </a>
-
-        <div class="rv-s proj" style="display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">BizParse</div><div style="font-size:13px;color:#8a7f70">NLP Framework</div></div>
-            </div>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Document-analysis framework that extracts insights from business filings using NLP and pattern recognition across unstructured data.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Python</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">spaCy</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">scikit-learn</span>
-          </div>
-        </div>
-
-        <a href="https://nunext.dev" target="_blank" data-note class="rv-s proj" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,transform .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;overflow:hidden;flex-shrink:0"><img src="images/NExT.jpeg" alt="NExT" style="width:100%;height:100%;object-fit:cover"></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">NExT Web Portal</div><div style="font-size:13px;color:#8a7f70">Consulting Website</div></div>
-            </div>
-            <span style="font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#9a9082;border:1px solid rgba(255,255,255,.14);padding:5px 10px;border-radius:6px">Live</span>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Designed and built the consulting agency's site with Astro and Sanity CMS, featuring leadership profiles, project portfolios, and automated deployment via Vercel.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Astro</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Sanity CMS</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Vercel</span>
-          </div>
-        </a>
-
-        <div class="rv-s proj" style="display:flex;flex-direction:column;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:border-color .3s,background .3s">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:20px">
-            <div style="display:flex;align-items:center;gap:14px">
-              <div style="width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(217,154,78,.12);color:#e8b974;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11H3m18 0h-6M12 3v6m0 12v-6"/><circle cx="12" cy="12" r="3"/></svg></div>
-              <div><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px">Learning Assistant</div><div style="font-size:13px;color:#8a7f70">RAG System</div></div>
-            </div>
-          </div>
-          <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;margin-bottom:22px">Retrieval-augmented generation tool that turns personal notes into an interactive knowledge base, tuned for accuracy through systematic embedding-model testing.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto">
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Python</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">FAISS</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">LangChain</span>
-            <span style="padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:999px;font-size:12.5px;color:#9a9082">Ollama</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="experience" style="max-width:1140px;margin:0 auto;padding:70px 32px">
-      <div class="rv-io" style="display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a7f70;margin-bottom:16px">
-        <span style="width:7px;height:7px;border-radius:50%;background:#d99a4e"></span>Experience
-      </div>
-      <h2 class="rv-io" style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(30px,4vw,46px);letter-spacing:-.005em;line-height:1.05;margin-bottom:44px">Where I've worked</h2>
-      <div style="display:flex;flex-direction:column">
-
-        <div class="rv-l exp-row" style="display:grid;grid-template-columns:200px 1fr;gap:36px;padding:30px 0;border-top:1px solid rgba(255,255,255,.08)">
-          <div class="exp-period" style="font-size:13.5px;font-weight:600;color:#8a7f70;display:flex;align-items:flex-start;gap:9px"><span style="color:#d99a4e">●</span>Jan 2026 - Present</div>
-          <div>
-            <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin-bottom:6px">Data Chief</h3>
-            <a href="https://generatenu.com" target="_blank" data-note style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#e8b974;font-size:14.5px;margin-bottom:14px">
-              <span style="width:20px;height:20px;border-radius:5px;overflow:hidden;display:inline-block"><img src="images/generate.png" alt="Generate" style="width:100%;height:100%;object-fit:cover"></span>
-              Generate Product Development Studio
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </a>
-            <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;max-width:640px">As Data Chief, leading four developers in building StrideTrack, a real-time biomechanical analytics platform for track &amp; field coaches. Driving architecture through code reviews and pair programming in FastAPI and React, and defining API endpoints and database schemas from client requirements.</p>
-          </div>
-        </div>
-
-        <div class="rv-l exp-row" style="display:grid;grid-template-columns:200px 1fr;gap:36px;padding:30px 0;border-top:1px solid rgba(255,255,255,.08)">
-          <div class="exp-period" style="font-size:13.5px;font-weight:600;color:#8a7f70;display:flex;align-items:flex-start;gap:9px"><span style="color:#d99a4e">●</span>Jan - May 2026</div>
-          <div>
-            <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin-bottom:6px">Teaching Assistant</h3>
-            <div style="display:inline-flex;align-items:center;gap:9px;color:#9a9082;font-size:14.5px;margin-bottom:14px">
-              <span style="width:20px;height:20px;border-radius:5px;overflow:hidden;display:inline-block"><img src="images/northeastern.png" alt="Northeastern" style="width:100%;height:100%;object-fit:cover"></span>
-              Khoury College of Computer Sciences
-            </div>
-            <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;max-width:640px">TA for Database Design (CS3200), supporting 200+ students with SQL, data modeling, normalization, and query optimization through office hours and grading.</p>
-          </div>
-        </div>
-
-        <div class="rv-l exp-row" style="display:grid;grid-template-columns:200px 1fr;gap:36px;padding:30px 0;border-top:1px solid rgba(255,255,255,.08)">
-          <div class="exp-period" style="font-size:13.5px;font-weight:600;color:#8a7f70;display:flex;align-items:flex-start;gap:9px"><span style="color:#d99a4e">●</span>Jul - Dec 2025</div>
-          <div>
-            <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin-bottom:6px">Software Engineer</h3>
-            <a href="https://nunext.dev" target="_blank" data-note style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#e8b974;font-size:14.5px;margin-bottom:14px">
-              <span style="width:20px;height:20px;border-radius:5px;overflow:hidden;display:inline-block"><img src="images/NExT.jpeg" alt="NExT" style="width:100%;height:100%;object-fit:cover"></span>
-              NExT Consulting
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </a>
-            <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;max-width:640px">Led development of ML-powered platforms and manufacturing data-flow systems, architecting scalable REST APIs with Django and PostgreSQL and real-time production dashboards.</p>
-          </div>
-        </div>
-
-        <div class="rv-l exp-row" style="display:grid;grid-template-columns:200px 1fr;gap:36px;padding:30px 0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
-          <div class="exp-period" style="font-size:13.5px;font-weight:600;color:#8a7f70;display:flex;align-items:flex-start;gap:9px"><span style="color:#d99a4e">●</span>Jan - Jul 2025</div>
-          <div>
-            <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin-bottom:6px">Student Innovation Developer</h3>
-            <div style="display:inline-flex;align-items:center;gap:9px;color:#9a9082;font-size:14.5px;margin-bottom:14px">
-              <span style="width:20px;height:20px;border-radius:5px;overflow:hidden;display:inline-block"><img src="images/northeastern.png" alt="Northeastern" style="width:100%;height:100%;object-fit:cover"></span>
-              Northeastern University
-            </div>
-            <p style="font-size:14.5px;line-height:1.6;color:#a89e8f;max-width:640px">Built a licensure-tracking system for the Office of the Provost, monitoring regulatory requirements across 51 programs in 63 U.S. territories via automated scraping and AI-powered analysis.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="contact" style="max-width:1140px;margin:0 auto;padding:90px 32px 40px;text-align:center">
-      <div class="rv-s" style="position:relative;border:1px solid rgba(217,154,78,.18);border-radius:26px;padding:72px 32px;overflow:hidden;background:radial-gradient(120% 140% at 50% 0%,rgba(217,154,78,.1),rgba(255,255,255,.02) 55%)">
-        <div style="display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#e8b974;margin-bottom:22px">
-          <span style="width:7px;height:7px;border-radius:50%;background:#d99a4e"></span>Seeking full-time roles · June 2027
-        </div>
-        <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(32px,5vw,56px);letter-spacing:-.01em;line-height:1.04;margin-bottom:20px;max-width:16ch;margin-left:auto;margin-right:auto">Let's build something intelligent.</h2>
-        <p style="font-size:18px;color:#a89e8f;max-width:480px;margin:0 auto 36px">I'm always up for meaningful projects and new opportunities, whether in data, ML, or anything worth building well.</p>
-        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-          <a href="https://www.linkedin.com/in/memaaseide" target="_blank" data-note style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;background:#d99a4e;color:#1a1408;padding:15px 28px;border-radius:999px;font-weight:600;font-size:15px">Message on LinkedIn
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
           </a>
-          <a href="mailto:maaseidemichael@gmail.com" data-note class="ghost" style="display:inline-flex;align-items:center;gap:9px;text-decoration:none;border:1px solid rgba(255,255,255,.16);color:#e3dcd0;padding:15px 28px;border-radius:999px;font-weight:600;font-size:15px">Email me</a>
-        </div>
-      </div>
-    </section>
 
-    <footer style="max-width:1140px;margin:0 auto;padding:30px 32px 50px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.06)">
-      <div style="font-size:13.5px;color:#8a7f70;display:inline-flex;align-items:center;gap:8px">© 2026 Michael Maaseide <span style="color:#d99a4e">♪</span></div>
-      <div style="display:flex;gap:22px">
-        <a href="https://github.com/mmaaseide23" target="_blank" style="text-decoration:none;color:#9a9082;font-size:13.5px">GitHub</a>
-        <a href="https://www.linkedin.com/in/memaaseide" target="_blank" style="text-decoration:none;color:#9a9082;font-size:13.5px">LinkedIn</a>
-        <a href="mailto:maaseidemichael@gmail.com" style="text-decoration:none;color:#9a9082;font-size:13.5px">Email</a>
-      </div>
-    </footer>
-  </div>
+          <a href="https://github.com/mmaaseide23/ChordCrack" target="_blank" rel="noopener" data-note class="feat rv" style="--i:1">
+            <div class="feat-top">
+              <img src="images/chordcrack-icon-sm.png" alt="" width="56" height="56" loading="lazy" class="app-icon">
+              <span class="tag">App Store release, Sept 2025</span>
+            </div>
+            <div>
+              <h3>ChordCrack</h3>
+              <p>Guitar ear-training app with a daily chord challenge, progressive hints, practice modes up to barre and blues chords, friends, and a global leaderboard. Built natively in Swift and SwiftUI.</p>
+            </div>
+            <ul class="tags"><li>Swift</li><li>SwiftUI</li><li>Supabase</li></ul>
+          </a>
+
+          <a href="https://deen1113.github.io/TopicDrift/" target="_blank" rel="noopener" data-note class="feat feat-metric rv" style="--i:2">
+            <div class="feat-top">
+              <span class="meta">SE research · Team of 5</span>
+              <svg class="i feat-arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+            </div>
+            <div class="metric"><span class="metric-num">2.3M</span><span class="metric-label">papers from 2,000+ conferences</span></div>
+            <div>
+              <h3>TopicDrift</h3>
+              <p>Traces 50 years of ICSE research (~11,000 papers, 1976 to 2025) with one BERTopic model fit across all venues, grouping 174 topics into 10 themes.</p>
+            </div>
+            <ul class="tags"><li>BERTopic</li><li>Python</li><li>UMAP</li><li>HDBSCAN</li></ul>
+          </a>
+        </div>
+
+        <div class="more">
+          <h3 class="more-h rv">More projects</h3>
+          <ul class="index">
+            <li class="rv">
+              <a href="https://github.com/samuelbaldwin05/QuoridorAI" target="_blank" rel="noopener" data-note class="entry">
+                <div class="entry-head"><h4>Quoridor AI</h4><svg class="i entry-arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></div>
+                <p class="meta">Reinforcement learning · Team of 4</p>
+                <p class="entry-desc">PPO agent for Quoridor, warm-started with behavioral cloning and refined through self-play on a CNN board encoder. Beats a random bot about 100% of the time and a heuristic bot about 85% when moving first.</p>
+                <p class="entry-stack">PyTorch, PPO, self-play, behavioral cloning</p>
+              </a>
+            </li>
+            <li class="rv" style="--i:1">
+              <div class="entry">
+                <div class="entry-head"><h4>SEMS</h4></div>
+                <p class="meta">NExT Consulting · Team of 7</p>
+                <p class="entry-desc">Student Experience Matching System: matches Northeastern students with experiences from their survey answers, using sentence-transformer embeddings and pgvector similarity search. Built in three weeks.</p>
+                <p class="entry-stack">Django, React, Sentence Transformers, pgvector, AWS</p>
+              </div>
+            </li>
+            <li class="rv">
+              <a href="https://github.com/jackc602/Fallacy-Detector" target="_blank" rel="noopener" data-note class="entry">
+                <div class="entry-head"><h4>Fallacy Detector</h4><svg class="i entry-arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></div>
+                <p class="meta">NLP classification · Team of 3</p>
+                <p class="entry-desc">Classifies 13 types of logical fallacies across ~3,800 labeled arguments, comparing TF-IDF, deep averaging networks, handcrafted argument features, and fine-tuned transformers. Class-weighted RoBERTa scored best (test macro-F1 0.45).</p>
+                <p class="entry-stack">Python, PyTorch, RoBERTa, scikit-learn</p>
+              </a>
+            </li>
+            <li class="rv" style="--i:1">
+              <a href="https://nunext.dev" target="_blank" rel="noopener" data-note class="entry">
+                <div class="entry-head"><h4>NExT Web Portal</h4><svg class="i entry-arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg><span class="tag tag-live">Live</span></div>
+                <p class="meta">Consulting website · Team of 7</p>
+                <p class="entry-desc">Contributed the Sanity CMS setup, projects portfolio, leadership and consultant profiles, and testimonials to NExT Consulting's Astro site, deployed on Vercel.</p>
+                <p class="entry-stack">Astro, Sanity CMS, Vercel</p>
+              </a>
+            </li>
+            <li class="rv">
+              <a href="https://github.com/mmaaseide23/RetrievalAugmentedGen" target="_blank" rel="noopener" data-note class="entry">
+                <div class="entry-head"><h4>Learning Assistant</h4><svg class="i entry-arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></div>
+                <p class="meta">RAG system · Team of 4</p>
+                <p class="entry-desc">Answers questions from class-note PDFs with local LLMs through Ollama. Compared three embedding models across FAISS, Chroma, and Redis on ingestion and retrieval speed and memory.</p>
+                <p class="entry-stack">Python, FAISS, Chroma, Redis, Ollama</p>
+              </a>
+            </li>
+            <li class="rv" style="--i:1">
+              <div class="entry">
+                <div class="entry-head"><h4>BizParse</h4></div>
+                <p class="meta">NLP · Team of 4</p>
+                <p class="entry-desc">Python toolkit that reads SEC 10-K filings and compares companies by word frequency, keyword sentiment, word clouds, and Sankey diagrams.</p>
+                <p class="entry-stack">Python, NLTK, TextBlob, Plotly</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="experience" class="wrap section" aria-labelledby="experience-h">
+        <h2 id="experience-h" class="section-h rv">Where I've worked</h2>
+        <ol class="timeline">
+
+          <!-- TENTATIVE: BCG position added Jun 2026 — remove if it does not work out -->
+          <li class="role rv">
+            <p class="role-date">Jun - Dec 2026</p>
+            <div class="role-body">
+              <h3>AI Researcher</h3>
+              <a href="https://www.bcg.com" target="_blank" rel="noopener" data-note class="org">
+                <img src="images/BCG_Corporate_Logo.svg" alt="" width="20" height="20" loading="lazy">
+                Boston Consulting Group (BCG)
+                <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+              </a>
+              <p>Conducting applied AI research, exploring and prototyping machine learning approaches to support client and internal initiatives.</p>
+            </div>
+          </li>
+
+          <li class="role rv">
+            <p class="role-date">Jan - Apr 2026</p>
+            <div class="role-body">
+              <h3>Data Chief</h3>
+              <a href="https://generatenu.com" target="_blank" rel="noopener" data-note class="org">
+                <img src="images/generate-sm.png" alt="" width="20" height="20" loading="lazy">
+                Generate Product Development Studio
+                <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+              </a>
+              <p>Built the Bluetooth sensor connection (web and iOS), the run recording flow, and athlete and run API endpoints for StrideTrack, a track &amp; field analytics app, on an eight-person team.</p>
+            </div>
+          </li>
+
+          <li class="role rv">
+            <p class="role-date">Jan - May 2026</p>
+            <div class="role-body">
+              <h3>Teaching Assistant</h3>
+              <p class="org">
+                <img src="images/northeastern-sm.png" alt="" width="20" height="20" loading="lazy">
+                Khoury College of Computer Sciences
+              </p>
+              <p>TA for Database Design (CS3200), supporting 200+ students with SQL, data modeling, normalization, and query optimization through office hours and grading.</p>
+            </div>
+          </li>
+
+          <li class="role rv">
+            <p class="role-date">Jul - Dec 2025</p>
+            <div class="role-body">
+              <h3>Software Engineer</h3>
+              <a href="https://nunext.dev" target="_blank" rel="noopener" data-note class="org">
+                <img src="images/next-sm.jpg" alt="" width="20" height="20" loading="lazy">
+                NExT Consulting
+                <svg class="i" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+              </a>
+              <p>Worked on SEMS, an embedding-based student matching app (Django, PostgreSQL), and Via Data, a manufacturing data pipeline feeding real-time Grafana dashboards, with a FastAPI service on AWS ECS.</p>
+            </div>
+          </li>
+
+          <li class="role rv">
+            <p class="role-date">Jan - Jul 2025</p>
+            <div class="role-body">
+              <h3>Student Innovation Developer</h3>
+              <p class="org">
+                <img src="images/northeastern-sm.png" alt="" width="20" height="20" loading="lazy">
+                Northeastern University
+              </p>
+              <p>Built a licensure-tracking system for the Office of the Provost, monitoring state and territory licensure requirements for 51 programs via automated scraping and AI-powered analysis.</p>
+            </div>
+          </li>
+
+        </ol>
+      </section>
+
+      <section id="contact" class="wrap section contact" aria-labelledby="contact-h">
+        <div class="cta rv">
+          <div>
+            <h2 id="contact-h">Let's build something intelligent.</h2>
+            <p>I'm always up for meaningful projects and new opportunities, whether in data, ML, or anything worth building well.</p>
+          </div>
+          <div class="cta-actions">
+            <a href="https://www.linkedin.com/in/memaaseide" target="_blank" rel="noopener" data-note class="btn btn-primary">Message on LinkedIn <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <a href="mailto:maaseidemichael@gmail.com" data-note class="btn btn-secondary">Email me</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="wrap footer">
+        <p>© 2026 Michael Maaseide <span class="footer-note" aria-hidden="true">♪</span></p>
+        <nav aria-label="Social">
+          <a href="https://github.com/mmaaseide23" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/memaaseide" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:maaseidemichael@gmail.com">Email</a>
+        </nav>
+      </footer>
+    </div>
+  </main>
 </div>
 
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
-  // ---------- scroll reveals (IntersectionObserver on every browser for cross-browser parity) ----------
+  // ---------- scroll reveals ----------
   (function initReveals() {
     if (reduce) return;
     var root = document.documentElement;
-    root.classList.add('js-anim'); // also set early in <head> to avoid a flash; harmless to repeat
+    root.classList.add('js-anim'); // also set early in <body> to avoid a flash; harmless to repeat
     // Only enable the scroll-scrubbed hero recede where scroll-driven animations genuinely work.
     // CSS.supports lies on Firefox (parses the syntax without running it), so we also require the
     // ViewTimeline constructor, which Firefox does not expose when it can't drive these animations.
@@ -428,29 +533,42 @@
         root.classList.add('sda');
       }
     } catch (e) {}
-    var els = document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s,.rv-b,.rv-io');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-        });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
-      els.forEach(function (el) { io.observe(el); });
-    } else {
-      els.forEach(function (el) { el.classList.add('in'); });
-    }
+    var els = document.querySelectorAll('.rv');
+    if (!hasIO) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    els.forEach(function (el) { io.observe(el); });
   })();
 
-  // ---------- header: transparent at the very top, frosted once scrolled ----------
+  // ---------- header: transparent at the very top, frosted once scrolled (no scroll listener) ----------
   (function initHeader() {
     var hdr = document.querySelector('.site-header');
-    if (!hdr) return;
-    var onScroll = function () {
-      if ((window.scrollY || window.pageYOffset || 0) > 8) hdr.classList.add('scrolled');
-      else hdr.classList.remove('scrolled');
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    var sentinel = document.getElementById('top-sentinel');
+    if (!hdr || !sentinel || !hasIO) return;
+    new IntersectionObserver(function (entries) {
+      hdr.classList.toggle('scrolled', !entries[0].isIntersecting);
+    }).observe(sentinel);
+  })();
+
+  // ---------- nav: mark the section currently in view ----------
+  (function initActiveNav() {
+    if (!hasIO) return;
+    var links = {};
+    document.querySelectorAll('.nav-link').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].removeAttribute('aria-current'); });
+        if (links[en.target.id]) links[en.target.id].setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['top', 'about', 'projects', 'experience', 'contact'].forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s) io.observe(s);
+    });
   })();
 
   // ---------- 3D knowledge graph ----------
@@ -460,6 +578,7 @@
     var canvas = document.getElementById('kg-canvas');
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
+    var ACCENT = '234,165,79', HUB = '244,189,118';
     var counts = { Subtle: 78, Balanced: 120, Bold: 175 };
     var alphas = { Subtle: 0.5, Balanced: 0.72, Bold: 0.95 };
     var N = counts[GRAPH_INTENSITY] || 120;
@@ -501,8 +620,6 @@
       canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    resize();
-    window.addEventListener('resize', function () { dpr = Math.min(window.devicePixelRatio || 1, 2); resize(); });
 
     var ay = 0.4, ax = -0.22, mx = 0, my = 0, tmx = 0, tmy = 0;
     window.addEventListener('pointermove', function (e) {
@@ -510,21 +627,10 @@
       tmy = (e.clientY / window.innerHeight - 0.5);
     });
 
-    var scrollBoost = 0, lastY = window.scrollY || 0;
-    var layer = document.getElementById('kg-layer');
-    window.addEventListener('scroll', function () {
-      var y = window.scrollY || 0, dyv = y - lastY; lastY = y;
-      scrollBoost += dyv * 0.00008;
-      if (scrollBoost > 0.025) scrollBoost = 0.025;
-      if (scrollBoost < -0.025) scrollBoost = -0.025;
-      if (layer) layer.style.transform = 'translateY(' + (y * -0.05).toFixed(1) + 'px)';
-    }, { passive: true });
-
-    var raf;
     function draw() {
       ctx.clearRect(0, 0, w, h);
       mx += (tmx - mx) * 0.04; my += (tmy - my) * 0.04;
-      if (!reduce) { ay += 0.0017 + scrollBoost; scrollBoost *= 0.9; }
+      if (!reduce) ay += 0.0017;
       var angY = ay + mx * 0.6, angX = ax + my * 0.45;
       var cY = Math.cos(angY), sY = Math.sin(angY), cX = Math.cos(angX), sX = Math.sin(angX);
       var cx = w / 2, cy = h * 0.46, sp = Math.min(w, h) * 0.46, camZ = 3.0, f = 2.5;
@@ -539,7 +645,7 @@
       for (var e = 0; e < E.length; e++) {
         var pa = P[E[e][0]], pb = P[E[e][1]];
         var closeE = 1 - ((pa.z + pb.z) / 2 + 1) / 2;
-        ctx.strokeStyle = 'rgba(217,154,78,' + (0.03 + closeE * 0.17 * A).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(' + ACCENT + ',' + (0.03 + closeE * 0.17 * A).toFixed(3) + ')';
         ctx.lineWidth = 0.6;
         ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
       }
@@ -548,30 +654,49 @@
         var closeN = 1 - (p.z + 1) / 2;
         var rad = Math.max(0.7, (p.hub ? 2.1 : 1.2) * p.sc);
         var op = Math.min(1, (0.22 + closeN * 0.78) * A);
-        if (p.hub) { ctx.shadowColor = 'rgba(232,185,116,0.85)'; ctx.shadowBlur = 6 + closeN * 8; ctx.fillStyle = 'rgba(240,205,149,' + op.toFixed(3) + ')'; }
-        else { ctx.shadowBlur = 0; ctx.fillStyle = 'rgba(217,154,78,' + op.toFixed(3) + ')'; }
+        if (p.hub) { ctx.shadowColor = 'rgba(' + HUB + ',0.85)'; ctx.shadowBlur = 6 + closeN * 8; ctx.fillStyle = 'rgba(' + HUB + ',' + op.toFixed(3) + ')'; }
+        else { ctx.shadowBlur = 0; ctx.fillStyle = 'rgba(' + ACCENT + ',' + op.toFixed(3) + ')'; }
         ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, Math.PI * 2); ctx.fill();
       }
       ctx.shadowBlur = 0;
-      raf = requestAnimationFrame(draw);
     }
-    raf = requestAnimationFrame(draw);
-    document.addEventListener('visibilitychange', function () {
-      cancelAnimationFrame(raf);
-      if (!document.hidden) raf = requestAnimationFrame(draw);
+
+    // Animate only while the hero is on screen and the tab is visible; under reduced motion draw a single still frame.
+    var raf = 0, running = false, heroVisible = true;
+    function frame() { draw(); raf = requestAnimationFrame(frame); }
+    function start() { if (running || reduce || document.hidden || !heroVisible) return; running = true; raf = requestAnimationFrame(frame); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    resize();
+    window.addEventListener('resize', function () {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      resize();
+      if (!running) draw();
     });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    var hero = document.getElementById('top');
+    if (hasIO && hero) {
+      new IntersectionObserver(function (entries) {
+        heroVisible = entries[0].isIntersecting;
+        if (heroVisible) start(); else stop();
+      }).observe(hero);
+    }
+    draw();
+    start();
   })();
 
   // ---------- subtle music nod: a note floats up on accent clicks ----------
   (function initMusicNod() {
-    var notes = ['\u266a', '\u266b', '\u266c'], i = 0;
+    if (reduce) return;
+    var notes = ['♪', '♫', '♬'], i = 0;
     document.addEventListener('click', function (e) {
       var tgt = e.target && e.target.closest ? e.target.closest('[data-note]') : null;
       if (!tgt) return;
       var nEl = document.createElement('div');
       nEl.textContent = notes[i++ % notes.length];
+      nEl.setAttribute('aria-hidden', 'true');
       nEl.style.cssText = 'position:fixed;left:' + e.clientX + 'px;top:' + e.clientY +
-        'px;z-index:9998;pointer-events:none;color:#e8b974;font-size:18px;text-shadow:0 0 10px rgba(217,154,78,.6);animation:floatNote 1.6s ease-out forwards';
+        'px;z-index:var(--z-note);pointer-events:none;color:var(--accent-hover);font-size:18px;animation:floatNote 1.6s ease-out forwards';
       document.body.appendChild(nEl);
       setTimeout(function () { nEl.remove(); }, 1600);
     });
