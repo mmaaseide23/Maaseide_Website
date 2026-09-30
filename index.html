@@ -213,27 +213,58 @@
     .bento{grid-template-columns:1fr}
     .feat-lg{grid-row:auto}
   }
+  /* Phones and tablets: single column, centered content. */
   @media (max-width:880px){
     .nav-link{display:none}
     .hero{min-height:auto}
-    .hero-grid{grid-template-columns:1fr;gap:48px}
-    .portrait{justify-self:start;width:min(320px,78vw)}
-    .about-grid{grid-template-columns:1fr;gap:40px}
-    .index{grid-template-columns:1fr}
-    .role{grid-template-columns:1fr;gap:10px}
-    .role-body{padding-bottom:44px;padding-left:24px}
-    .cta{grid-template-columns:1fr;gap:32px;padding:40px 32px}
+    .hero-grid{grid-template-columns:1fr;gap:48px;text-align:center}
+    .lede{margin-left:auto;margin-right:auto}
+    .hero-actions{justify-content:center}
+    .hero-actions .btn-primary{margin-right:0}
+    .portrait{justify-self:center;width:min(300px,74vw)}
+    .section-h{text-align:center}
+    .about-grid{grid-template-columns:1fr;gap:36px;text-align:center}
+    .statement{max-width:30ch;margin:0 auto}
+    .about .tags{justify-content:center}
+    .feat{text-align:center;align-items:center}
+    .feat-top{flex-direction:column;align-items:center;gap:12px}
+    .feat-arrow{display:none}
+    .feat p{margin-left:auto;margin-right:auto}
+    .metric,.feat .tags{justify-content:center}
+    .shot{width:100%}
+    .more-h{text-align:center}
+    .index{grid-template-columns:1fr;gap:0}
+    .index li+li .entry{border-top:1px solid var(--hairline)}
+    .entry{margin:0;padding:28px 0;border-radius:0;text-align:center}
+    a.entry:hover{background:none}
+    .entry-head{justify-content:center}
+    .entry .tag{margin-left:2px}
+    .entry-desc{max-width:44ch;margin-left:auto;margin-right:auto}
+    .role{display:block;text-align:center}
+    .role-date{padding-top:0;margin-bottom:8px}
+    .role-date::before{content:"";display:block;width:24px;height:2px;border-radius:1px;background:var(--accent);margin:0 auto 14px}
+    .role-body{border-left:0;padding:0 0 52px}
+    .role-body::before{display:none}
+    .role p{margin-left:auto;margin-right:auto}
+    .cta{grid-template-columns:1fr;gap:32px;padding:40px 32px;text-align:center}
+    .cta h2,.cta p{margin-left:auto;margin-right:auto}
+    .cta-actions{justify-content:center}
+    .footer{flex-direction:column;justify-content:center;gap:14px;text-align:center}
   }
   @media (max-width:600px){
     .wrap{padding:0 20px}
     .footer{background-size:calc(100% - 40px) 1px}
     .hero{padding:96px 0 56px}
     .hero h1{font-size:36px;line-height:1.08}
+    .lede{font-size:17px}
     .section{padding-top:88px}
+    .section-h{margin-bottom:36px}
     .about{padding-top:64px}
-    .feat{padding:24px}
+    .statement{font-size:22px;line-height:1.38}
+    .feat{padding:24px 20px}
     .cta{padding:36px 22px}
-    .cta-actions .btn{flex:1 1 auto}
+    .cta-actions{flex-direction:column;width:100%}
+    .cta-actions .btn{width:100%}
   }
 </style>
 </head>
